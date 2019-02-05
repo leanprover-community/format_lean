@@ -3,7 +3,7 @@
 This prototype is a python library which renders convert Lean files to
 other files, for instance another Lean file of a html file.
 
-## Installation
+## Installation
 
 You need Python 3.7 or later, and Lean. Make sure the python package
 manager `pip` is installed.  Clone this repository, go to its root directory
@@ -12,7 +12,7 @@ install `ipython` for interactive use. Alternatively, if you don't want to mess
 up with your global python environment, you can use a dedicated virtual
 environment, as explained below.
 
-### Optional: setting up a virtual python environment
+### Optional: setting up a virtual python environment
 Use `pip install --user virtualenvwrapper`, and add to your `.bashrc` something like:
 ```bash
 # Python virtualenvwrapper
