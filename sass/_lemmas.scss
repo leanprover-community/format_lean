@@ -1,0 +1,30 @@
+// Lemmas
+
+div.lemma_wrapper
+{
+    margin-top: 1rem;
+}
+
+span.lemma_label
+{
+    font-weight: bold;
+}
+
+div.lemma_content
+{
+    margin-left: .5rem;
+    padding-left: .5rem;
+    border-left: .15rem solid black;
+}
+
+div.lemma_text:hover
+{
+  transition: all .2s ease;
+
+  background: darken($background-color, 10%);
+}
+
+div.lemma_lean
+{
+  display: none ;
+}

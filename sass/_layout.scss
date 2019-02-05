@@ -1,0 +1,64 @@
+body
+{
+    margin: 0;
+
+    color: $main-text-color;
+    background-color: $background-color;
+    display: flex;
+    flex-direction: row;
+}
+
+
+// Main content
+
+
+$main-width: 70%;
+
+div.wrapper {
+  width: 100%;
+  min-height: 100%;
+}
+div.content
+{ float: left ;
+  padding: 1rem;
+  width: $main-width;
+  border-right: .1rem solid $titles-color;
+}
+div.tactic_state_wrapper
+{ position: fixed;
+  top: 0px;
+  margin-left: $main-width ;
+  padding: 1rem;
+}
+h1.tactic_state_header
+{ font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: $titles-color;}
+
+/* Alignment */
+div.centered {
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-end;
+  justify-content: space-around;
+	min-width: 100%;
+	margin: 0 auto;
+}
+
+div.flushleft, div.raggedright {
+  display: flex;
+  justify-content: flex-start;
+}
+div.flushright, div.raggedleft {
+  display: flex;
+  justify-content: flex-end;
+}
+div.raggedbottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+

@@ -1,0 +1,11 @@
+<div class="definition_wrapper">
+  <span class="definition_label">Definition</span>
+  <div class="definition_content">
+    <div class="definition_text">
+      {{ obj.text }}
+    </div>
+    <div class="definition_lean">
+     {{ obj.lean }}   
+    </div>
+  </div>
+</div>

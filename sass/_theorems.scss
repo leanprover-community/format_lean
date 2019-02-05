@@ -1,0 +1,30 @@
+// Theorems
+
+div.theorem_wrapper
+{
+    margin-top: 1rem;
+}
+
+span.theorem_label
+{
+    font-weight: bold;
+}
+
+div.theorem_content
+{
+    margin-left: .5rem;
+    padding-left: .5rem;
+    border-left: .25rem solid black;
+}
+
+div.theorem_text:hover
+{
+  transition: all .2s ease;
+
+  background: darken($background-color, 10%);
+}
+
+div.theorem_lean
+{
+  display: none ;
+}

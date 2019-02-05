@@ -1,0 +1,47 @@
+div.proof_wrapper
+{
+    margin-top: 1rem;
+}
+
+span.proof_label
+{
+    font-weight: bold;
+}
+
+div.proof_content
+{
+    padding-left: .5rem;
+}
+
+span.proof_item_text:hover
+{
+  transition: all .2s ease;
+
+  background: darken($background-color, 10%);
+}
+
+div.proof_item_lean {
+  display: none;
+}
+
+div.proof_line {
+  display: flex;
+}
+
+span.tactic_left:hover
+{ transition: all .2s ease;
+  background: darken($background-color, 10%); }
+
+span.tactic_left
+{ width: 3rem; 
+  background: darken($background-color, 5%);}
+span.tactic_right
+{ margin-left: 2rem;
+  width: 3rem;
+  background: darken($background-color, 5%);}
+span.tactic_right:hover
+{ transition: all .2s ease;
+  background: darken($background-color, 10%); }
+span[class^="tactic_state_"] {
+  display: none;
+}

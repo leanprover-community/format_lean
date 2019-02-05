@@ -1,0 +1,7 @@
+<div class="text">
+{% for paragraph in obj.paragraphs %}
+  <p class="text">
+  {{ paragraph.content }}
+  </p>
+{% endfor %}
+</div>
