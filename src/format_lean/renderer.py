@@ -23,9 +23,6 @@ def color(obj):
     return obj
 
 
-## La lecture de l'état tactique ne devrait pas être dans Renderer mais dans
-## FileReader
-
 @dataclass
 class Renderer:
     env: Environment = None
