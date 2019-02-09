@@ -3,6 +3,7 @@ from typing import List
 from dataclasses import dataclass, field
 import distutils
 from pathlib import Path
+import os, shutil
 
 import regex
 
@@ -292,8 +293,8 @@ class ProofComment(LineReader):
         return True
 
 
-def render_lean_file(inpath, outpath=None, toolchain=None,
-        lib_path=None, templates=None):
+def render_lean_file(inpath, outpath=None, outdir=None,
+        toolchain=None, lib_path=None, templates=None):
     if toolchain:
         lean_exec_path = Path.home() / '.elan/toolchains' / toolchain / 'bin/lean'
     else:
@@ -303,6 +304,15 @@ def render_lean_file(inpath, outpath=None, toolchain=None,
     templates = templates or str(Path(__file__).parent / '../../templates/')
 
     outpath = outpath or inpath.replace('.lean', '.html')
+
+    if outdir:
+        if not Path(outdir).is_dir():
+            os.makedirs(outdir)
+        outpath = str(Path(outdir) / outpath)
+        for path in (Path(__file__).parent / '../../').glob('*.css'):
+            shutil.copy(path, outdir)
+        for path in (Path(__file__).parent / '../../').glob('*.js'):
+            shutil.copy(path, outdir)
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
             [HeaderBegin, HeaderEnd, SectionBegin, SectionEnd, SubSectionBegin,
