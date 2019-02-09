@@ -44,16 +44,16 @@ configure it:
 ```bash
 sudo apt install python3-virtualenv python3-pip
 sudo -H pip3 install virtualenvwrapper
-echo 'export WORKON_HOME=$HOME/.virtualenvs\nexport VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3\nexport VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv' >> ~/.bashrc
+echo -e 'export WORKON_HOME=$HOME/.virtualenvs\nexport VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3\nsource /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 ```
 And then create a virtual environment for `format_lean` (after
 restarting you shell, or at least sourcing bashrc in order to get those
 variables set) typing in your home: 
 ```bash
-mkvirtualenv --python=.pyenv/versions/3.7.2/bin/python format_lean
+mkvirtualenv --python=$HOME/.pyenv/versions/3.7.2/bin/python format_lean
 ```
 
-## Install a custom pygment library
+## Install a custom pygment library
 
 You will probably also want to get Lean syntax highlighthing. The most
 up to date version of [pygment](http://pygments.org/) for Lean can be found in
