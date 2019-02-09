@@ -7,24 +7,11 @@ other files, for instance another Lean file of a html file.
 
 You need Python 3.7 or later, and Lean. Make sure the python package
 manager `pip` is installed.  Clone this repository, go to its root directory
-and run `pip install .` (using `sudo` if needed). It's also recommended to
+and run `pip install .` (using `sudo -H` if needed). It's also recommended to
 install `ipython` for interactive use. Alternatively, if you don't want to mess
 up with your global python environment, you can use a dedicated virtual
-environment, as explained below.
-
-### Optional: setting up a virtual python environment
-Use `pip install --user virtualenvwrapper`, and add to your `.bashrc` something like:
-```bash
-# Python virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source $HOME/.local/bin/virtualenvwrapper.sh
-```
-You can then run `mkvirtualenv --python=/usr/bin/python3.7 format_lean` to
-create your virtual environment. Once inside this environment (either because
-you just created it or after running `workon format_lean`), you can pip
-install. Note that you can leave the environment by running `deactivate`.
-
+environment. This is explained in the more complete 
+[installation guide](https://github.com/leanprover-community/format_lean/blob/master/INSTALL.md).
 
 ## Usage
 
