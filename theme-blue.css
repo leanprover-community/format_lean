@@ -288,22 +288,8 @@ div.content {
   line-height: 1.4rem;
 }
 
-div.content > p {
-  margin: 2.1rem 0;
-}
-
 li > p {
   margin: 0.28rem 0;
-}
-
-.icon {
-  display: inline-block;
-  user-select: none;
-  width: 1rem;
-  height: 1rem;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -338,15 +324,6 @@ h4 {
 p {
   font-size: 1rem;
   margin: 0.5rem 0;
-}
-
-/* Title Page */
-.titlepage {
-  text-align: center;
-}
-
-.titlepage h1 {
-  font-weight: normal;
 }
 
 /**

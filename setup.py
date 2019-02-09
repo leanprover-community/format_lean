@@ -8,4 +8,4 @@ setup(
     description='A Lean prover text formatter',
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    install_requires=['regex >= 2018.7.11', 'jinja2 >= 2.10'])
+    install_requires=['regex >= 2018.7.11', 'jinja2 >= 2.10', 'mistletoe >= 0.7.1'])
