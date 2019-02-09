@@ -1,5 +1,10 @@
+#! /usr/bin/env python3
+
 from pathlib import Path
-import os, shutil
+import os, shutil, distutils
+
+from fire import Fire
+import toml
 
 from format_lean.line_reader import FileReader
 from format_lean.renderer import Renderer
@@ -12,11 +17,19 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         toolchain=None, lib_path=None, templates=None):
     if toolchain:
         lean_exec_path = Path.home() / '.elan/toolchains' / toolchain / 'bin/lean'
+        core_path = lean_exec_path.parent / '../lib/lean/library'
     else:
         lean_exec_path = Path(distutils.spawn.find_executable('lean'))
-    core_path = lean_exec_path.parent / '../lib/lean/library'
+        if '.elan' in str(lean_exec_path):
+            s = toml.load(str(lean_exec_path.parent / '../settings.toml'))
+            toolchain = s['default_toolchain']
+            core_path = lean_exec_path.parent / '../toolchains' / toolchain / 'lib/lean/library'
+        else:
+            core_path = lean_exec_path.parent / '../lib/lean/library'
+
+    print(core_path)
     lean_path = f'{core_path}:{lib_path}' if lib_path else core_path
-    templates = templates or str(Path(__file__).parent / '../../templates/')
+    templates = templates or str(Path(__file__).parent / '../templates/')
 
     outpath = outpath or inpath.replace('.lean', '.html')
 
@@ -24,9 +37,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         if not Path(outdir).is_dir():
             os.makedirs(outdir)
         outpath = str(Path(outdir) / outpath)
-        for path in (Path(__file__).parent / '../../').glob('*.css'):
+        for path in (Path(__file__).parent / '../').glob('*.css'):
             shutil.copy(path, outdir)
-        for path in (Path(__file__).parent / '../../').glob('*.js'):
+        for path in (Path(__file__).parent / '../').glob('*.js'):
             shutil.copy(path, outdir)
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
@@ -38,3 +51,5 @@ def render_lean_file(inpath, outpath=None, outdir=None,
     renderer = Renderer.from_file(templates)
     renderer.render(lecture_reader.output, outpath)
 
+if __name__ == '__main__':
+    Fire(render_lean_file)

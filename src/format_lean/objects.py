@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 from typing import List
 from dataclasses import dataclass, field
-import distutils
-from pathlib import Path
-import os, shutil
 
 import regex
 

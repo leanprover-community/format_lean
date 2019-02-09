@@ -15,7 +15,22 @@ environment. This is explained in the more complete
 
 ## Usage
 
-If you only want to play with my example formatter in `lecture.py`,
-you can fire ipython, `from format_lean.lecture import render_lean_file`
-and then use 
-`render_lean_file('my_file.lean', outdir='build', toolchain='3.4.2', lib_path='/usr/lib/lean-mathlib/src')`. Of course you need to point to your local copy of `mathlib` (unless you don't need mathlib?!). You can omit `toolchain` if you don't use `elan` (but why would you do that?!). Optional arguments also include `outpath` if replacing `.lean` by `.html` is not good enough, and `templates` if you want to point to an alternate template directory. The resulting html file (together with supporting CSS and JS) will be in the `outdir` directory.
+If you only want to play with my example formatter you can simply run
+`format_lean` (which should be in your path if `pip install .` did its
+job). The basic usage is:
+```bash
+format_lean --inpath limits.lean --outdir build --lib-path /usr/lib/lean-mathlib/src
+```
+if you are in a folder containing `limits.lean`, have mathlib in `/usr/lib/lean-mathlib`, and 
+want to render into directory `build`. See `format_lean -- --help` for
+more option.
+
+Of course you need to point to your local copy of `mathlib` (unless you
+don't need mathlib?!). You can use `--toolchain` if your default `elan`
+toolchain isn't appropriate (you do use [elan](https://github.com/Kha/elan), right?). Optional
+arguments also include `outpath` if replacing `.lean` by `.html` is not
+good enough, and `templates` if you want to point to an alternate
+template directory. 
+
+The script source in the `bin` folder of this repository is a good entry
+point to understand how to customize more.
