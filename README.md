@@ -34,3 +34,9 @@ template directory.
 
 The script source in the `bin` folder of this repository is a good entry
 point to understand how to customize more.
+
+If you get addicted to it, and want to render a full Lean project, you
+can go to the root of the project (the folder containing `leanpkg.toml`)
+and run `format_project`. Optional arguments `--outdir my_dir` and
+`--template` as above. There is no need to point out a toolchain or
+dependencies since those are indicated in your `leanpkg.toml`.

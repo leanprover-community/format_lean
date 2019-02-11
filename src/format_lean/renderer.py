@@ -36,16 +36,18 @@ class Renderer:
             Paragraph(content=self.markdown_renderer.render(Document(par.content)))
             for par in text.paragraphs])
 
-    def render(self, objects, out_path):
+    def render(self, objects, out_path, page_context=None, title=None):
         """
         Renders objects to path
         """
         objects = [self.render_text(obj) if obj.name == 'text' else obj 
                    for obj in objects]
+        page_context = page_context or dict()
+        page_context['title'] = title or 'Lean'
         res = '\n'.join([
             self.env.get_template(obj.name).render(obj=color(obj)) for obj in objects])
-        self.env.get_template('page').stream({ 'title': 'Lean test', 'content':
-            res}).dump(out_path)
+        page_context['content'] = res
+        self.env.get_template('page').stream(page_context).dump(out_path)
 
     @classmethod
     def from_file(cls, path):

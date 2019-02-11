@@ -28,7 +28,10 @@ class FileReader:
         self.normal_line_handler = dismiss_line
         self.blank_line_handler = dismiss_line
         
-
+    def hard_reset(self):
+        self.reset()
+        self.cur_line_nb = 1
+        self.output = []
 
     def read_file(self, path):
         self.server.sync(path)

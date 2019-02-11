@@ -14,8 +14,9 @@
   </script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML" async>
   </script>
-  <link href="theme-blue.css" rel="stylesheet">
-  <link href="colorful.css" rel="stylesheet">
+  {% for css in csss %}
+  <link href="{{ css }}" rel="stylesheet">
+  {% endfor %}
 
 </head>
 <body>
@@ -29,8 +30,9 @@
 </div>
 </div>
 </div>
-<script src="jquery.min.js" type="text/javascript"></script>
-<script src="lean.js" type="text/javascript"></script>
+{% for js in jss %}
+<script src="{{ js }}" type="text/javascript"></script>
+{% endfor %}
 </body>
 </html>
 

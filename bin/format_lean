@@ -27,7 +27,6 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         else:
             core_path = lean_exec_path.parent / '../lib/lean/library'
 
-    print(core_path)
     lean_path = f'{core_path}:{lib_path}' if lib_path else core_path
     templates = templates or str(Path(__file__).parent / '../templates/')
 
@@ -49,7 +48,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
              ProofComment])
     lecture_reader.read_file(inpath)
     renderer = Renderer.from_file(templates)
-    renderer.render(lecture_reader.output, outpath)
+    pc = { 'csss': ['theme-blue.css', 'colorful.css'],
+            'jss': ['jquery.min.js', 'lean.js'] }
+    renderer.render(lecture_reader.output, outpath, page_context=pc)
 
 if __name__ == '__main__':
     Fire(render_lean_file)

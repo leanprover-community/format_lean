@@ -1,0 +1,69 @@
+#! /usr/bin/env python3
+
+from pathlib import Path
+import os, sys, shutil, distutils
+
+from fire import Fire
+import toml
+
+from format_lean.line_reader import FileReader
+from format_lean.renderer import Renderer
+from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
+    SectionEnd, SubSectionBegin, SubSectionEnd, TextBegin, TextEnd,
+    DefinitionBegin, DefinitionEnd, LemmaBegin, LemmaEnd, 
+    TheoremBegin, TheoremEnd, ProofBegin, ProofEnd,
+    ProofComment)
+
+def render_lean_project(outdir=None, templates=None):
+    try:
+        leanpkg_toml = toml.load('leanpkg.toml')
+    except FileNotFoundError:
+        print("Couldn't find a leanpkg.toml, I give up.")
+        sys.exit(1)
+    toolchain = leanpkg_toml['package']['lean_version']
+    lean_exec_path = Path.home() / '.elan/toolchains' / toolchain / 'bin/lean'
+    paths = [str(lean_exec_path.parent / '../lib/lean/library'),
+             str(Path.cwd() / 'src')]
+
+    for dep, dep_info in leanpkg_toml.get('dependencies', []).items():
+        if 'git' in dep_info:
+            paths.append(str(Path('_target/deps') / dep / 'src'))
+        else:
+            paths.append(dep_info['path'])
+    lean_path = ':'.join(paths)
+
+    templates = templates or str(Path(__file__).parent / '../templates/')
+
+    outdir = outdir or 'html'
+    if not Path(outdir).is_dir():
+        os.makedirs(outdir)
+    for path in (Path(__file__).parent / '../').glob('*.css'):
+        shutil.copy(path, outdir)
+    for path in (Path(__file__).parent / '../').glob('*.js'):
+        shutil.copy(path, outdir)
+
+    lecture_reader = FileReader(lean_exec_path, lean_path, 
+            [HeaderBegin, HeaderEnd, SectionBegin, SectionEnd, SubSectionBegin,
+             SubSectionEnd, TextBegin, TextEnd, DefinitionBegin,
+             DefinitionEnd, LemmaBegin, LemmaEnd, ProofBegin, ProofEnd,
+             TheoremBegin, TheoremEnd,
+             ProofComment])
+    renderer = Renderer.from_file(templates)
+    
+    for lean_file in Path('src').glob('**/*.lean'):
+        print('Rendering ' + str(lean_file))
+        tgt_dir = Path(outdir) / lean_file.relative_to('src').parent
+        tgt_dir.mkdir(parents=True, exist_ok=True)
+        outpath = str(Path(outdir) / lean_file.relative_to('src'))
+        lecture_reader.read_file(str(lean_file))
+        depth = len(lean_file.relative_to('src').parts) - 1
+        prefix = depth*'../'
+
+        pc = { 'csss': [prefix + 'theme-blue.css', prefix + 'colorful.css'],
+               'jss': [prefix + 'jquery.min.js', prefix + 'lean.js'],
+               'title': lean_file.name.replace('.lean', '') }
+        renderer.render(lecture_reader.output, outpath, page_context=pc)
+        lecture_reader.hard_reset()
+
+if __name__ == '__main__':
+    Fire(render_lean_project)

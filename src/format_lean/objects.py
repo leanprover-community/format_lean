@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from typing import List
 from dataclasses import dataclass, field
+import sys
 
 import regex
 
@@ -92,6 +93,14 @@ class Lemma(Bilingual):
     def proof_append(self, item):
         self.proof.items.append(item)
 
+
+@dataclass
+class Theorem(Bilingual):
+    name: str = 'theorem'
+    proof: Proof = field(default_factory=Proof)
+
+    def proof_append(self, item):
+        self.proof.items.append(item)
 
 #################
 #  Line readers #
@@ -244,6 +253,33 @@ class LemmaEnd(LineReader):
         return True
 
 
+class TheoremBegin(LineReader):
+    regex = regex.compile(r'\s*/-\s*Theorem\s*$')
+
+    def run(self, m, file_reader):
+        file_reader.status = 'theorem_text'
+        theorem = Theorem()
+        file_reader.output.append(theorem)
+        def normal_line(file_reader, line):
+            theorem.text_append(line)
+        file_reader.normal_line_handler = normal_line
+        return True
+
+
+class TheoremEnd(LineReader):
+    regex = regex.compile(r'-/')
+
+    def run(self, m, file_reader):
+        if file_reader.status is not 'theorem_text':
+            return False
+        file_reader.status = 'theorem_lean'
+        theorem = file_reader.output[-1]
+        def normal_line(file_reader, line):
+            theorem.lean_append(line)
+        file_reader.normal_line_handler = normal_line
+        return True
+
+
 class ProofBegin(LineReader):
     regex = regex.compile(r'^begin\s*$')
 
@@ -269,7 +305,11 @@ class ProofComment(LineReader):
     def run(self, m, file_reader):
         if file_reader.status == 'proof':
             item = ProofItem()
-            file_reader.output[-1].proof_append(item)
+            try:
+                file_reader.output[-1].proof_append(item)
+            except:
+                print(f"Something is wrong on line {file_reader.cur_line_nb}.  Maybe we are trying to comment on a proof of a lemma whose statement has no human readable version.") 
+                sys.exit(1)
             file_reader.status = 'proof_comment'
         elif file_reader.status == 'proof_comment':
             item = file_reader.output[-1].proof.items[-1]
