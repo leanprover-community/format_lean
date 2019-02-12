@@ -21,9 +21,7 @@ You are now ready to download python 3.7. It will be installed in your
 home directory, but you still need some system-wide library support. A
 good way to make sure everything is there is to run:
 ```bash
-sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev 
-libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev
-xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 ```
 or the equivalent command for non-Debian distributions.
 
@@ -42,7 +40,7 @@ We will now prepare for a virtual environment dedicated to
 `virtualenvwrapper`, setting three shell environment variables to
 configure it:
 ```bash
-sudo apt install python3-virtualenv python3-pip
+sudo apt install virtualenv python3-pip
 sudo -H pip3 install virtualenvwrapper
 echo -e 'export WORKON_HOME=$HOME/.virtualenvs\nexport VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3\nsource /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 ```
@@ -61,7 +59,7 @@ up to date version of [pygment](http://pygments.org/) for Lean can be found in
 
 Activate your python virtualenv by typing `workon format_lean` in case
 you left it after creating it. Then download pygment using the above
-link, uncompress it, got to the created folder and type `pip install .`.
+link, uncompress it, go to the created folder and type `pip install .`.
 You can then get rid of this folder.
 
 ## Install `format_lean`
