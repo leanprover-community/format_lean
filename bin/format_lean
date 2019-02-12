@@ -6,6 +6,7 @@ import os, shutil, distutils
 from fire import Fire
 import toml
 
+import format_lean
 from format_lean.line_reader import FileReader
 from format_lean.renderer import Renderer
 from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
