@@ -42,7 +42,8 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
         print(lean_exec_path, lean_path)
 
     templates = templates or str(module_path / 'templates/')
-    print(templates)
+    if debug:
+        print(templates)
 
     outdir = outdir or 'html'
     if not Path(outdir).is_dir():

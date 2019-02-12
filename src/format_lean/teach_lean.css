@@ -569,7 +569,7 @@ div.definition_text:hover {
 }
 
 div.definition_lean {
-  display: none;
+  display: block;
 }
 
 div.example_wrapper {
@@ -592,7 +592,7 @@ div.example_text:hover {
 }
 
 div.example_lean {
-  display: none;
+  display: block;
 }
 
 div.lemma_wrapper {
@@ -638,7 +638,7 @@ div.theorem_text:hover {
 }
 
 div.theorem_lean {
-  display: none;
+  display: block;
 }
 
 div.proof_wrapper {
@@ -659,7 +659,7 @@ span.proof_item_text:hover {
 }
 
 div.proof_item_lean {
-  display: none;
+  display: block;
 }
 
 div.proof_line {
@@ -691,4 +691,4 @@ span[class^=tactic_state_] {
   display: none;
 }
 
-/*# sourceMappingURL=lecture.css.map */
+/*# sourceMappingURL=teach_lean.css.map */

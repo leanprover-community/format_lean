@@ -35,9 +35,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
             core_path = lean_exec_path.parent / '../lib/lean/library'
 
     lean_path = f'{core_path}:{lib_path}' if lib_path else core_path
-    if debug:
-        print(lean_exec_path, lean_path)
     templates = templates or str(module_path / 'templates/')
+    if debug:
+        print(lean_exec_path, lean_path, templates)
 
     outpath = outpath or inpath.replace('.lean', '.html')
 

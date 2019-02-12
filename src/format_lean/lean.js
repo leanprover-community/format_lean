@@ -1,3 +1,27 @@
+var dragging = false;
+
+$('#dragbar').mousedown(function(e){
+  e.preventDefault();
+  dragging = true;
+  var content = $('#content');
+  var dragbar = $('#dragbar');
+  var tsw = $('#tactic_state_wrapper');
+  console.log("Resizing...");
+  $(document).mousemove(function(ex){
+    content.css("width", ex.pageX +2);
+    dragbar.css("left", ex.pageX +2);
+    tsw.css("margin-left", ex.pageX +2);
+  });
+});
+
+$(document).mouseup(function(e){
+  if (dragging) 
+  {
+    $(document).unbind('mousemove');
+    dragging = false;
+  }
+});
+
 $(document).ready(function() {
     $("div.definition_text").click(
            function() {
@@ -14,13 +38,17 @@ $(document).ready(function() {
 
     $("span.tactic_left").click(
            function() {
-               $("div.tactic_state").html(
-				   $(this).siblings("span.tactic_state_left").html())
+			   var width = $('#content').css("width");
+               $("div#tactic_state").html(
+				   $(this).siblings("span.tactic_state_left").html());
+			   $('#content').css("width", width);
            })
 
     $("span.tactic_right").click(
            function() {
-               $("div.tactic_state").html(
+			   var width = $('#content').css("width");
+               $("div#tactic_state").html(
 				   $(this).siblings("span.tactic_state_right").html())
+			   $('#content').css("width", width);
            })
 });

@@ -20,13 +20,14 @@
 
 </head>
 <body>
-<div class="wrapper">
-<div class="content">
+<div id="wrapper">
+<div id="content">
 {{ content }}
 </div>
-<div class="tactic_state_wrapper">
-<h1 id="tactic_state_header">Tactic state</h1>
-<div class="tactic_state">
+<div id="dragbar"></div>
+<div id="tactic_state_wrapper">
+  <h1 id="tactic_state_header">Tactic state</h1>
+<div id="tactic_state">
 </div>
 </div>
 </div>
