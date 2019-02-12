@@ -102,6 +102,14 @@ class Theorem(Bilingual):
     def proof_append(self, item):
         self.proof.items.append(item)
 
+
+@dataclass
+class Example(Bilingual):
+    name: str = 'example'
+    proof: Proof = field(default_factory=Proof)
+
+    def proof_append(self, item):
+        self.proof.items.append(item)
 #################
 #  Line readers #
 #################
@@ -276,6 +284,33 @@ class TheoremEnd(LineReader):
         theorem = file_reader.output[-1]
         def normal_line(file_reader, line):
             theorem.lean_append(line)
+        file_reader.normal_line_handler = normal_line
+        return True
+
+
+class ExampleBegin(LineReader):
+    regex = regex.compile(r'\s*/-\s*Example\s*$')
+
+    def run(self, m, file_reader):
+        file_reader.status = 'example_text'
+        example = Example()
+        file_reader.output.append(example)
+        def normal_line(file_reader, line):
+            example.text_append(line)
+        file_reader.normal_line_handler = normal_line
+        return True
+
+
+class ExampleEnd(LineReader):
+    regex = regex.compile(r'-/')
+
+    def run(self, m, file_reader):
+        if file_reader.status is not 'example_text':
+            return False
+        file_reader.status = 'example_lean'
+        example = file_reader.output[-1]
+        def normal_line(file_reader, line):
+            example.lean_append(line)
         file_reader.normal_line_handler = normal_line
         return True
 

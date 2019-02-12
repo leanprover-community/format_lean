@@ -10,7 +10,11 @@ from format_lean.line_reader import FileReader
 from format_lean.renderer import Renderer
 from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     SectionEnd, SubSectionBegin, SubSectionEnd, TextBegin, TextEnd,
-    DefinitionBegin, DefinitionEnd, LemmaBegin, LemmaEnd, ProofBegin, ProofEnd,
+    DefinitionBegin, DefinitionEnd, 
+    ExampleBegin, ExampleEnd,
+    LemmaBegin, LemmaEnd,
+    TheoremBegin, TheoremEnd,
+    ProofBegin, ProofEnd,
     ProofComment)
 
 def render_lean_file(inpath, outpath=None, outdir=None,
@@ -42,10 +46,15 @@ def render_lean_file(inpath, outpath=None, outdir=None,
             shutil.copy(path, outdir)
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
-            [HeaderBegin, HeaderEnd, SectionBegin, SectionEnd, SubSectionBegin,
-             SubSectionEnd, TextBegin, TextEnd, DefinitionBegin,
-             DefinitionEnd, LemmaBegin, LemmaEnd, ProofBegin, ProofEnd,
-             ProofComment])
+            [HeaderBegin, HeaderEnd,
+             SectionBegin, SectionEnd, 
+             SubSectionBegin, SubSectionEnd,
+             TextBegin, TextEnd, 
+             DefinitionBegin, DefinitionEnd,
+             ExampleBegin, ExampleEnd,
+             LemmaBegin, LemmaEnd,
+             TheoremBegin, TheoremEnd,
+             ProofBegin, ProofEnd, ProofComment])
     lecture_reader.read_file(inpath)
     renderer = Renderer.from_file(templates)
     pc = { 'csss': ['theme-blue.css', 'colorful.css'],
