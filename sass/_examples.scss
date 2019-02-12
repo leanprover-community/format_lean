@@ -1,30 +1,30 @@
-// Theorems
+// Examples
 
-div.theorem_wrapper
+div.example_wrapper
 {
     margin-top: 1rem;
 }
 
-span.theorem_label
+span.example_label
 {
     font-weight: bold;
 }
 
-div.theorem_content
+div.example_content
 {
     margin-left: .5rem;
     padding-left: .5rem;
     border-left: .25rem solid black;
 }
 
-div.theorem_text:hover
+div.example_text:hover
 {
   transition: all .2s ease;
 
   background: darken($background-color, 10%);
 }
 
-div.theorem_lean
+div.example_lean
 {
   @if $show-lean-statements {
 	display: block; 

@@ -27,5 +27,8 @@ div.definition_text:hover
 
 div.definition_lean
 {
-  display: none ;
+  @if $show-lean-statements {
+	display: block; 
+  } @else {
+	display: none; }
 }

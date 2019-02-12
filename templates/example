@@ -1,0 +1,35 @@
+<div class="example_wrapper">
+  <span class="example_label">Example</span>
+  <div class="example_content">
+	<div class="example_text">
+	  {{ obj.text }}
+	</div>
+
+	<div class="example_lean">
+	  {{ obj.lean }}
+	</div>
+  </div>
+
+  <div class="proof_wrapper">
+    <span class="proof_label">Proof</span>
+	<div class="proof_content">
+	  {% for item in obj.proof.items %}
+	  <div class="proof_item">
+		<span class="proof_item_text">{{ item.text }}</span>
+    <div class="proof_item_lean">
+      {% for line in item.lines %}
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        {{ line.lean }}
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left">{{ line.tactic_state_left }}</span>
+		<span class="tactic_state_right">{{ line.tactic_state_right }}</span>
+      </div>
+      {% endfor %}
+    </div>
+	  </div>
+	  {% endfor %}
+	</div>
+    <span class="proof_qed">QED.</span>
+  </div>
+</div>

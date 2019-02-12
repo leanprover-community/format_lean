@@ -18,7 +18,7 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     ProofComment)
 
 def render_lean_file(inpath, outpath=None, outdir=None,
-        toolchain=None, lib_path=None, templates=None):
+        toolchain=None, lib_path=None, templates=None, css='lecture.css'):
     if toolchain:
         lean_exec_path = Path.home() / '.elan/toolchains' / toolchain / 'bin/lean'
         core_path = lean_exec_path.parent / '../lib/lean/library'
@@ -57,7 +57,7 @@ def render_lean_file(inpath, outpath=None, outdir=None,
              ProofBegin, ProofEnd, ProofComment])
     lecture_reader.read_file(inpath)
     renderer = Renderer.from_file(templates)
-    pc = { 'csss': ['theme-blue.css', 'colorful.css'],
+    pc = { 'csss': [main_css, 'colorful.css'],
             'jss': ['jquery.min.js', 'lean.js'] }
     renderer.render(lecture_reader.output, outpath, page_context=pc)
 

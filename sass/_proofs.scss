@@ -21,7 +21,10 @@ span.proof_item_text:hover
 }
 
 div.proof_item_lean {
-  display: none;
+  @if $show-lean-proofs {
+	display: block; 
+  } @else {
+	display: none; }
 }
 
 div.proof_line {
