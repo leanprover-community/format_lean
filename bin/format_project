@@ -69,7 +69,7 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
         print('Rendering ' + str(lean_file))
         tgt_dir = Path(outdir) / lean_file.relative_to('src').parent
         tgt_dir.mkdir(parents=True, exist_ok=True)
-        outpath = str(Path(outdir) / lean_file.relative_to('src'))
+        outpath = str(Path(outdir) / lean_file.relative_to('src')).replace('.lean', '.html')
         lecture_reader.read_file(str(lean_file))
         depth = len(lean_file.relative_to('src').parts) - 1
         prefix = depth*'../'
