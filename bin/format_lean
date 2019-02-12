@@ -63,7 +63,7 @@ def render_lean_file(inpath, outpath=None, outdir=None,
              ProofBegin, ProofEnd, ProofComment])
     lecture_reader.read_file(inpath)
     renderer = Renderer.from_file(templates)
-    pc = { 'csss': [main_css, 'colorful.css'],
+    pc = { 'csss': [css, 'colorful.css'],
             'jss': ['jquery.min.js', 'lean.js'] }
     renderer.render(lecture_reader.output, outpath, page_context=pc)
 
