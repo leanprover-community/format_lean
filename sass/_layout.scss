@@ -28,6 +28,7 @@ div.tactic_state_wrapper
 { position: fixed;
   top: 0px;
   margin-left: $main-width ;
+	resize: horizontal ;
   padding: 1rem;
 }
 h1.tactic_state_header

@@ -17,8 +17,11 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     ProofBegin, ProofEnd,
     ProofComment)
 
+module_path = Path(format_lean.__file__).parent
+
 def render_lean_file(inpath, outpath=None, outdir=None,
-        toolchain=None, lib_path=None, templates=None, css='lecture.css'):
+        toolchain=None, lib_path=None, templates=None, css='lecture.css',
+        debug=False):
     if toolchain:
         lean_exec_path = Path.home() / '.elan/toolchains' / toolchain / 'bin/lean'
         core_path = lean_exec_path.parent / '../lib/lean/library'
@@ -32,7 +35,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
             core_path = lean_exec_path.parent / '../lib/lean/library'
 
     lean_path = f'{core_path}:{lib_path}' if lib_path else core_path
-    templates = templates or str(Path(__file__).parent / '../templates/')
+    if debug:
+        print(lean_exec_path, lean_path)
+    templates = templates or str(module_path / 'templates/')
 
     outpath = outpath or inpath.replace('.lean', '.html')
 
@@ -40,9 +45,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         if not Path(outdir).is_dir():
             os.makedirs(outdir)
         outpath = str(Path(outdir) / outpath)
-        for path in (Path(__file__).parent / '../').glob('*.css'):
+        for path in module_path.glob('*.css'):
             shutil.copy(path, outdir)
-        for path in (Path(__file__).parent / '../').glob('*.js'):
+        for path in module_path.glob('*.js'):
             shutil.copy(path, outdir)
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 

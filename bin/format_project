@@ -6,6 +6,7 @@ import os, sys, shutil, distutils
 from fire import Fire
 import toml
 
+import format_lean
 from format_lean.line_reader import FileReader
 from format_lean.renderer import Renderer
 from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
@@ -17,7 +18,10 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     ProofBegin, ProofEnd,
     ProofComment)
 
-def render_lean_project(outdir=None, templates=None, css='lecture.css'):
+module_path = Path(format_lean.__file__).parent
+
+def render_lean_project(outdir=None, templates=None, css='lecture.css',
+        debug=False):
     try:
         leanpkg_toml = toml.load('leanpkg.toml')
     except FileNotFoundError:
@@ -34,15 +38,18 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css'):
         else:
             paths.append(dep_info['path'])
     lean_path = ':'.join(paths)
+    if debug:
+        print(lean_exec_path, lean_path)
 
-    templates = templates or str(Path(__file__).parent / '../templates/')
+    templates = templates or str(module_path / 'templates/')
+    print(templates)
 
     outdir = outdir or 'html'
     if not Path(outdir).is_dir():
         os.makedirs(outdir)
-    for path in (Path(__file__).parent / '../').glob('*.css'):
+    for path in module_path.glob('*.css'):
         shutil.copy(path, outdir)
-    for path in (Path(__file__).parent / '../').glob('*.js'):
+    for path in module_path.glob('*.js'):
         shutil.copy(path, outdir)
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
@@ -66,7 +73,7 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css'):
         depth = len(lean_file.relative_to('src').parts) - 1
         prefix = depth*'../'
 
-        pc = { 'csss': [prefix + main_css, prefix + 'colorful.css'],
+        pc = { 'csss': [prefix + css, prefix + 'colorful.css'],
                'jss': [prefix + 'jquery.min.js', prefix + 'lean.js'],
                'title': lean_file.name.replace('.lean', '') }
         renderer.render(lecture_reader.output, outpath, page_context=pc)

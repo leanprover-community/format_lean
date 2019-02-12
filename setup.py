@@ -8,5 +8,8 @@ setup(
     description='A Lean prover text formatter',
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    package_data={
+        '': ['*.css', '*.js', 'templates/*'],
+    },
     scripts=['bin/format_lean', 'bin/format_project'],
-    install_requires=['regex >= 2018.7.11', 'jinja2 >= 2.10', 'mistletoe >= 0.7.1', 'toml >= 0.10.0'])
+    install_requires=['regex >= 2018.7.11', 'jinja2 >= 2.10', 'mistletoe >= 0.7.1', 'toml >= 0.10.0', 'fire >= 0.1.3'])
