@@ -28,7 +28,7 @@ class Server:
             f'"line": {line},"column":{col}}}\n'
         self.proc.stdin.write(s)
         ret = json.loads(self.proc.stdout.readline().rstrip())
-        try:
+        if 'record' in ret:
             return ret['record']['state']
-        except KeyError:
-            raise LeanError(str(ret))
+        else:
+            raise LeanError(ret)

@@ -40,3 +40,6 @@ can go to the root of the project (the folder containing `leanpkg.toml`)
 and run `format_project`. Optional arguments `--outdir my_dir` and
 `--template` as above. There is no need to point out a toolchain or
 dependencies since those are indicated in your `leanpkg.toml`.
+If you want to exclude files `src/hide_me.lean` and `src/secret.lean`
+from the rendering process, you can create a file `format.toml` next to
+your `leanpkg.toml` containing `exclude = ['hide_me.lean', 'secret.lean']`.
