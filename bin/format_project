@@ -41,14 +41,17 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
     if debug:
         print(lean_exec_path, lean_path)
 
-    templates = templates or str(module_path / 'templates/')
+    try:
+        format_toml = toml.load('format.toml')
+    except:
+        format_toml = dict()
+
+    templates = templates or (format_toml.get('templates') or 
+                              str(module_path / 'templates/'))
     if debug:
         print(templates)
 
-    try:
-        excludes = toml.load('format.toml')['exclude']
-    except:
-        excludes = []
+    excludes = format_toml.get('exclude', [])
     
     try:
         lang = toml.load('format_lang.toml')
