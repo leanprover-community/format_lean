@@ -27,9 +27,17 @@ $(document).ready(function() {
            function() {
                $(this).siblings("div.definition_lean").slideToggle()
            })
+    $("div.example_text").click(
+           function() {
+               $(this).siblings("div.example_lean").slideToggle()
+           })
     $("div.lemma_text").click(
            function() {
                $(this).siblings("div.lemma_lean").slideToggle()
+           })
+    $("div.theorem_text").click(
+           function() {
+               $(this).siblings("div.theorem_lean").slideToggle()
            })
     $("span.proof_item_text").click(
            function() {
