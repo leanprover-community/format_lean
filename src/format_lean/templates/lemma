@@ -1,5 +1,5 @@
 <div class="lemma_wrapper">
-  <span class="lemma_label">Lemma</span>
+  <span class="lemma_label">{{ lang.get('Lemma', 'Lemma') }}</span>
   <div class="lemma_content">
 	<div class="lemma_text">
 	  {{ obj.text }}
@@ -11,7 +11,7 @@
   </div>
 
   <div class="proof_wrapper">
-    <span class="proof_label">Proof</span>
+    <span class="proof_label">{{ lang.get('Proof', 'Proof') }}</span>
 	<div class="proof_content">
 	  {% for item in obj.proof.items %}
 	  <div class="proof_item">

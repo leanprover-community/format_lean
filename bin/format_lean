@@ -48,6 +48,8 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         outpath = str(Path(outdir) / outpath)
         for path in module_path.glob('*.css'):
             shutil.copy(path, outdir)
+        for path in module_path.glob('*.css.map')
+            shutil.copy(path, outdir)
         for path in module_path.glob('*.js'):
             shutil.copy(path, outdir)
 

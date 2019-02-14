@@ -45,7 +45,8 @@ class Renderer:
         page_context = page_context or dict()
         page_context['title'] = title or 'Lean'
         res = '\n'.join([
-            self.env.get_template(obj.name).render(obj=color(obj)) for obj in objects])
+            self.env.get_template(obj.name).render(obj=color(obj),
+                lang=page_context['lang']) for obj in objects])
         page_context['content'] = res
         self.env.get_template('page').stream(page_context).dump(out_path)
 

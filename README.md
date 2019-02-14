@@ -43,3 +43,11 @@ dependencies since those are indicated in your `leanpkg.toml`.
 If you want to exclude files `src/hide_me.lean` and `src/secret.lean`
 from the rendering process, you can create a file `format.toml` next to
 your `leanpkg.toml` containing `exclude = ['hide_me.lean', 'secret.lean']`.
+
+When using `format_project`, you can put a file `format_lang.toml` containing some translations, say:
+```
+Example = "Exemple"
+Lemma = "Lemme"
+Theorem = "Théorème"
+Proof = "Démonstration"
+```

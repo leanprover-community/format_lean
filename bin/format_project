@@ -49,11 +49,18 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
         excludes = toml.load('format.toml')['exclude']
     except:
         excludes = []
+    
+    try:
+        lang = toml.load('format_lang.toml')
+    except:
+        lang = dict()
 
     outdir = outdir or 'html'
     if not Path(outdir).is_dir():
         os.makedirs(outdir)
     for path in module_path.glob('*.css'):
+        shutil.copy(path, outdir)
+    for path in module_path.glob('*.css.map'):
         shutil.copy(path, outdir)
     for path in module_path.glob('*.js'):
         shutil.copy(path, outdir)
@@ -88,7 +95,8 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
 
         pc = { 'csss': [prefix + css, prefix + 'colorful.css'],
                'jss': [prefix + 'jquery.min.js', prefix + 'lean.js'],
-               'title': lean_file.name.replace('.lean', '') }
+               'title': lean_file.name.replace('.lean', ''),
+               'lang': lang}
         renderer.render(lecture_reader.output, outpath, page_context=pc)
         lecture_reader.hard_reset()
 
