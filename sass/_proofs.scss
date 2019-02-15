@@ -1,16 +1,44 @@
 div.proof_wrapper
 {
     margin-top: 1rem;
+		width: 100%;
+}
+div.proof_wrapper::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 span.proof_label
 {
     font-weight: bold;
+		display: block;
 }
+
+span.proof_qed
+{
+    font-weight: bold;
+		display: block;
+}
+
 
 div.proof_content
 {
     padding-left: .5rem;
+}
+
+div.small_proof_content
+{
+    padding-left: .5rem;
+		width: 60%;
+		float: left,
+}
+
+div.small_tactic_state
+{
+    padding-left: .5rem;
+		width: 40%;
+		float: left;
 }
 
 span.proof_item_text:hover

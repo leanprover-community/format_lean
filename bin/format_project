@@ -20,7 +20,7 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
 
 module_path = Path(format_lean.__file__).parent
 
-def render_lean_project(outdir=None, templates=None, css='lecture.css',
+def render_lean_project(outdir=None, templates=None, css='',
         debug=False):
     try:
         leanpkg_toml = toml.load('leanpkg.toml')
@@ -61,12 +61,25 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
     outdir = outdir or 'html'
     if not Path(outdir).is_dir():
         os.makedirs(outdir)
+
+    css = css or format_toml.get('css', 'lecture.css')
     for path in module_path.glob('*.css'):
         shutil.copy(path, outdir)
     for path in module_path.glob('*.css.map'):
         shutil.copy(path, outdir)
-    for path in module_path.glob('*.js'):
-        shutil.copy(path, outdir)
+
+    if 'js' in format_toml:
+        jss = format_toml['js'] 
+        for path in jss:
+            shutil.copy(path, outdir)
+        shutil.copy(module_path /'jquery.min.js', outdir)
+        jss = ['jquery.min.js'] + jss
+    else:
+        jss = []
+        for path in module_path.glob('*.js'):
+            jss.append(path.name)
+            shutil.copy(path, outdir)
+
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
             [HeaderBegin, HeaderEnd,
@@ -97,7 +110,7 @@ def render_lean_project(outdir=None, templates=None, css='lecture.css',
         prefix = depth*'../'
 
         pc = { 'csss': [prefix + css, prefix + 'colorful.css'],
-               'jss': [prefix + 'jquery.min.js', prefix + 'lean.js'],
+               'jss': [prefix + js  for js in jss],
                'title': lean_file.name.replace('.lean', ''),
                'lang': lang}
         renderer.render(lecture_reader.output, outpath, page_context=pc)

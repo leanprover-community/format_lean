@@ -3,6 +3,11 @@ div.content
     line-height: $content-line-height;
 }
 
+p
+{
+	line-height: 1.5rem;
+}
+
 li > p
 {
     margin: .2*$content-line-height 0;
