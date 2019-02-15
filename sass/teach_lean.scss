@@ -1,12 +1,49 @@
-$titles-color: rgb(15,47,72);
-
-$background-color: rgb(232, 232, 232);
-$main-text-color: rgb(10, 10, 20);
-
-$content-line-height: 1.4rem;
-
-$smallskipamount: 1rem;
 $show-lean-proofs: true;
 $show-lean-statements: true;
-@import 'common';
+$background-color: #fffff8;
+code {
+	font-size: 1.1rem;
+	font-weight: bold
+}
+div#content {
+	width: 70%;
+}
+@media (max-width: 760px) {
+div#content {
+	width: 100%;
+}}   
+
+@import 'lean_elements' ;
+div.example_wrapper {
+	font-size: 1.4rem;
+}
+div.lemma_wrapper {
+	font-size: 1.4rem;
+}
+div.theorem_wrapper {
+	font-size: 1.4rem;
+}
+
+pre {
+	margin-top: .2rem;
+	margin-bottom: .2rem;
+}
+
+$see_ts: lighten(#111, 80%);
+
+span.tactic_left
+{ width: 3rem; 
+  background: $see_ts;}
+span.tactic_left:hover
+{ transition: all .2s ease;
+  background: darken($see_ts, 10%); }
+
+	span.tactic_right
+{ margin-left: 2rem;
+  width: 3rem;
+  background: $see_ts;}
+
+span.tactic_right:hover
+{ transition: all .2s ease;
+  background: darken($see_ts, 10%); }
 

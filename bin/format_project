@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-import os, sys, shutil, distutils
+import os, sys, shutil, distutils.dir_util
 
 from fire import Fire
 import toml
@@ -20,7 +20,7 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
 
 module_path = Path(format_lean.__file__).parent
 
-def render_lean_project(outdir=None, templates=None, css='',
+def render_lean_project(outdir=None, templates=None, css=None,
         debug=False):
     try:
         leanpkg_toml = toml.load('leanpkg.toml')
@@ -39,7 +39,8 @@ def render_lean_project(outdir=None, templates=None, css='',
             paths.append(dep_info['path'])
     lean_path = ':'.join(paths)
     if debug:
-        print(lean_exec_path, lean_path)
+        print("Lean executable path:", lean_exec_path)
+        print("LEAN_PATH:", lean_path)
 
     try:
         format_toml = toml.load('format.toml')
@@ -49,7 +50,7 @@ def render_lean_project(outdir=None, templates=None, css='',
     templates = templates or (format_toml.get('templates') or 
                               str(module_path / 'templates/'))
     if debug:
-        print(templates)
+        print("Template folder:", templates)
 
     excludes = format_toml.get('exclude', [])
     
@@ -62,11 +63,15 @@ def render_lean_project(outdir=None, templates=None, css='',
     if not Path(outdir).is_dir():
         os.makedirs(outdir)
 
-    css = css or format_toml.get('css', 'lecture.css')
+    csss = css or format_toml.get('css', ['lecture.css'])
+    csss += ['colorful.css']
     for path in module_path.glob('*.css'):
-        shutil.copy(path, outdir)
-    for path in module_path.glob('*.css.map'):
-        shutil.copy(path, outdir)
+        if path.name in csss:
+            shutil.copy(path, outdir)
+            try:
+                shutil.copy(str(path)+'.map', outdir)
+            except FileNotFoundError:
+                pass
 
     if 'js' in format_toml:
         jss = format_toml['js'] 
@@ -79,6 +84,15 @@ def render_lean_project(outdir=None, templates=None, css='',
         for path in module_path.glob('*.js'):
             jss.append(path.name)
             shutil.copy(path, outdir)
+
+    assets = format_toml.get('assets', [])
+    for asset in assets:
+        if debug:
+            print("Copying asset:", asset)
+        if Path(asset).is_dir():
+            distutils.dir_util.copy_tree(asset, outdir)
+        else:
+            shutil.copy(asset, outdir)
 
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
@@ -108,8 +122,10 @@ def render_lean_project(outdir=None, templates=None, css='',
             continue
         depth = len(lean_file.relative_to('src').parts) - 1
         prefix = depth*'../'
-
-        pc = { 'csss': [prefix + css, prefix + 'colorful.css'],
+        css_paths = [prefix + css for css in csss]
+        if debug:
+            print('css paths: ', css_paths)
+        pc = { 'csss': css_paths,
                'jss': [prefix + js  for js in jss],
                'title': lean_file.name.replace('.lean', ''),
                'lang': lang}

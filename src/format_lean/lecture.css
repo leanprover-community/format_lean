@@ -267,33 +267,6 @@ h1.tactic_state_header {
   color: #0f2f48;
 }
 
-/* Alignment */
-div.centered {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-around;
-  min-width: 100%;
-  margin: 0 auto;
-}
-
-div.flushleft, div.raggedright {
-  display: flex;
-  justify-content: flex-start;
-}
-
-div.flushright, div.raggedleft {
-  display: flex;
-  justify-content: flex-end;
-}
-
-div.raggedbottom {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
 div.content {
   line-height: 1.4rem;
 }
@@ -671,13 +644,13 @@ div.proof_content {
 
 div.small_proof_content {
   padding-left: 0.5rem;
-  width: 60%;
+  width: 59%;
   float: left;
 }
 
 div.small_tactic_state {
   padding-left: 0.5rem;
-  width: 40%;
+  width: 39%;
   float: left;
 }
 
