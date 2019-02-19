@@ -43,7 +43,7 @@ class Renderer:
         objects = [self.render_text(obj) if obj.name == 'text' else obj 
                    for obj in objects]
         page_context = page_context or dict()
-        page_context['title'] = title or 'Lean'
+        page_context['title'] = page_context.get('title', title or 'Lean')
         res = '\n'.join([
             self.env.get_template(obj.name).render(obj=color(obj),
                 lang=page_context['lang']) for obj in objects])
