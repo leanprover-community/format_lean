@@ -1,5 +1,5 @@
 code {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -198,23 +198,23 @@ pre {
 
 span.tactic_left {
   width: 3rem;
-  background: #f7f7f7;
+  background: #dddddd;
 }
 
 span.tactic_left:hover {
   transition: all 0.2s ease;
-  background: #dddddd;
+  background: #c4c4c4;
 }
 
 span.tactic_right {
   margin-left: 2rem;
   width: 3rem;
-  background: #f7f7f7;
+  background: #dddddd;
 }
 
 span.tactic_right:hover {
   transition: all 0.2s ease;
-  background: #dddddd;
+  background: #c4c4c4;
 }
 
 /*# sourceMappingURL=teach_lean.css.map */

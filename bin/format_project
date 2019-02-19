@@ -59,7 +59,7 @@ def render_lean_project(outdir=None, templates=None, css=None,
     except:
         lang = dict()
 
-    outdir = outdir or 'html'
+    outdir = outdir or format_toml.get('outdir', 'html')
     if not Path(outdir).is_dir():
         os.makedirs(outdir)
 
