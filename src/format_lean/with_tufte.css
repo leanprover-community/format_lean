@@ -12,6 +12,17 @@ div#content {
     width: 100%;
   }
 }
+#dragbar {
+  background-color: #111;
+}
+
+h1#tactic_state_header {
+  font-size: 2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: #111;
+}
+
 div.definition_wrapper {
   margin-top: 1rem;
 }
@@ -32,7 +43,7 @@ div.definition_text:hover {
 }
 
 div.definition_lean {
-  display: block;
+  display: none;
 }
 
 div.example_wrapper {
@@ -55,7 +66,7 @@ div.example_text:hover {
 }
 
 div.example_lean {
-  display: block;
+  display: none;
 }
 
 div.lemma_wrapper {
@@ -95,13 +106,8 @@ div.theorem_content {
   border-left: 0.25rem solid black;
 }
 
-div.theorem_text:hover {
-  transition: all 0.2s ease;
-  background: #ffffc5;
-}
-
 div.theorem_lean {
-  display: block;
+  display: none;
 }
 
 div.proof_wrapper {
@@ -141,13 +147,8 @@ div.small_tactic_state {
   float: left;
 }
 
-span.proof_item_text:hover {
-  transition: all 0.2s ease;
-  background: #ffffc5;
-}
-
 div.proof_item_lean {
-  display: block;
+  display: none;
 }
 
 div.proof_line {
@@ -201,7 +202,9 @@ pre {
 }
 
 span.tactic_left {
-  width: 3rem;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
   background: #dddddd;
 }
 
@@ -211,8 +214,10 @@ span.tactic_left:hover {
 }
 
 span.tactic_right {
-  margin-left: 2rem;
-  width: 3rem;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0;
   background: #dddddd;
 }
 
@@ -221,4 +226,47 @@ span.tactic_right:hover {
   background: #c4c4c4;
 }
 
-/*# sourceMappingURL=teach_lean.css.map */
+html {
+  position: relative;
+}
+
+body {
+  margin: 0;
+}
+
+div#wrapper {
+  width: 100%;
+  min-height: 100%;
+}
+
+div#content {
+  margin: auto;
+  width: 70%;
+}
+
+#dragbar {
+  position: absolute;
+  top: 0;
+  min-height: 100%;
+  left: 70%;
+  width: 3px;
+  cursor: col-resize;
+}
+
+div#tactic_state_wrapper {
+  position: fixed;
+  margin-left: 70%;
+  top: 0px;
+  padding: 1rem;
+}
+
+div#content {
+  margin: 0;
+  padding-left: 30px;
+}
+
+body {
+  padding: 0;
+}
+
+/*# sourceMappingURL=with_tufte.css.map */

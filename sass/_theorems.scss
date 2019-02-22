@@ -17,11 +17,13 @@ div.theorem_content
     border-left: .25rem solid black;
 }
 
+@if $show-lean-statements {
 div.theorem_text:hover
 {
   transition: all .2s ease;
 
   background: darken($background-color, 10%);
+}
 }
 
 div.theorem_lean

@@ -2,12 +2,8 @@ html {
 	position: relative ;
 }
 
-body
-{
+body {
     margin: 0;
-
-    color: $main-text-color;
-    background-color: $background-color;
 }
 
 
@@ -23,12 +19,11 @@ div#wrapper {
 
 div#content
 { 
-	margin: auto;
+  margin: auto;
   width: $main-width;
 }
 
 #dragbar{
-   background-color: $titles-color;
    position: absolute;
    top: 0;
    min-height: 100%;
@@ -44,9 +39,4 @@ div#tactic_state_wrapper
   top: 0px;
   padding: 1rem;
 }
-h1.tactic_state_header
-{ font-size: 1.2rem;
-  line-height: 2rem;
-  margin: 1rem 0;
-  color: $titles-color;}
 

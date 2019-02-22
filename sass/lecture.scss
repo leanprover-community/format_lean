@@ -5,8 +5,24 @@ $main-text-color: rgb(10, 10, 20);
 
 $content-line-height: 1.4rem;
 
+h1#tactic_state_header
+{ font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: $titles-color;}
+
+#dragbar{
+   background-color: $titles-color;
+}
+body
+{
+    color: $main-text-color;
+    background-color: $background-color;
+}
 $smallskipamount: 1rem;
 $show-lean-proofs: false;
 $show-lean-statements: false;
-@import 'common';
+@import 'reset';
+@import 'big_tactic_state_layout';
+@import 'typography';
 @import 'lean_elements' ;

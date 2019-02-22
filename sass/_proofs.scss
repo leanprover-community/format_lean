@@ -41,11 +41,13 @@ div.small_tactic_state
 		float: left;
 }
 
+@if $show-lean-proofs {
 span.proof_item_text:hover
 {
   transition: all .2s ease;
 
   background: darken($background-color, 10%);
+}
 }
 
 div.proof_item_lean {
@@ -57,6 +59,12 @@ div.proof_item_lean {
 
 div.proof_line {
   display: flex;
+}
+
+
+div.inline_proof_item
+{
+	display: inline;
 }
 
 span.tactic_left:hover

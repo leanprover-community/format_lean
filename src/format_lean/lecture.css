@@ -1,4 +1,20 @@
 @charset "UTF-8";
+h1#tactic_state_header {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: #0f2f48;
+}
+
+#dragbar {
+  background-color: #0f2f48;
+}
+
+body {
+  color: #0a0a14;
+  background-color: #e8e8e8;
+}
+
 html,
 body,
 div,
@@ -229,8 +245,6 @@ html {
 
 body {
   margin: 0;
-  color: #0a0a14;
-  background-color: #e8e8e8;
 }
 
 div#wrapper {
@@ -244,7 +258,6 @@ div#content {
 }
 
 #dragbar {
-  background-color: #0f2f48;
   position: absolute;
   top: 0;
   min-height: 100%;
@@ -258,13 +271,6 @@ div#tactic_state_wrapper {
   margin-left: 70%;
   top: 0px;
   padding: 1rem;
-}
-
-h1.tactic_state_header {
-  font-size: 1.2rem;
-  line-height: 2rem;
-  margin: 1rem 0;
-  color: #0f2f48;
 }
 
 div.content {
@@ -608,11 +614,6 @@ div.theorem_content {
   border-left: 0.25rem solid black;
 }
 
-div.theorem_text:hover {
-  transition: all 0.2s ease;
-  background: #cfcfcf;
-}
-
 div.theorem_lean {
   display: none;
 }
@@ -654,17 +655,16 @@ div.small_tactic_state {
   float: left;
 }
 
-span.proof_item_text:hover {
-  transition: all 0.2s ease;
-  background: #cfcfcf;
-}
-
 div.proof_item_lean {
   display: none;
 }
 
 div.proof_line {
   display: flex;
+}
+
+div.inline_proof_item {
+  display: inline;
 }
 
 span.tactic_left:hover {

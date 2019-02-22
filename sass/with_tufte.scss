@@ -1,0 +1,75 @@
+$show-lean-proofs: false;
+$show-lean-statements: false;
+$background-color: #fffff8;
+code {
+	font-size: 1.2rem;
+	font-weight: bold
+}
+div#content {
+	width: 70%;
+}
+@media (max-width: 760px) {
+div#content {
+	width: 100%;
+}}   
+
+#dragbar{
+   background-color: #111;
+}
+
+h1#tactic_state_header
+{ font-size: 2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: #111;}
+
+@import 'lean_elements' ;
+div.example_wrapper {
+	font-size: 1.4rem;
+}
+div.lemma_wrapper {
+	font-size: 1.4rem;
+}
+div.theorem_wrapper {
+	font-size: 1.4rem;
+}
+
+pre {
+	margin-top: .2rem;
+	margin-bottom: .2rem;
+}
+
+$see_ts: lighten(#111, 80%);
+
+span.tactic_left
+{ display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background: $see_ts;}
+
+span.tactic_left:hover
+{ transition: all .2s ease;
+  background: darken($see_ts, 10%); }
+
+
+span.tactic_right
+{ display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0;
+  background: $see_ts;}
+
+span.tactic_right:hover
+{ transition: all .2s ease;
+  background: darken($see_ts, 10%); }
+
+@import 'big_tactic_state_layout' ;
+
+div#content {
+	margin:0;
+	padding-left: 30px;
+}
+
+body {
+	padding: 0;
+}
