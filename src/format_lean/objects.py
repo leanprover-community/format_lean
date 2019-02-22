@@ -64,7 +64,7 @@ class Definition(Bilingual):
 
 @dataclass
 class ProofLine:
-    name: str = 'proof-line'
+    name: str = 'proof_line'
     lean: str = ''
     tactic_state_left: str = ''
     tactic_state_right: str = ''

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import List
 from copy import copy
 
 from jinja2 import Environment, FileSystemLoader
@@ -30,17 +31,28 @@ def color(obj):
 class Renderer:
     env: Environment = None
     markdown_renderer: HTMLRenderer = field(default_factory=HTMLRenderer)
+    ts_filters: List =  field(default_factory=list)
 
-    def render_text(self, text):
+    def transform_text(self, text):
         return Text(paragraphs=[
             Paragraph(content=self.markdown_renderer.render(Document(par.content)))
             for par in text.paragraphs])
+
+    def transform_theorem(self, theorem):
+        for proof_item in theorem.proof.items:
+            for proof_line in proof_item.lines:
+                for r, s in self.ts_filters:
+                    proof_line.tactic_state_left = r.sub(
+                            s, proof_line.tactic_state_left)
+                    proof_line.tactic_state_right = r.sub(
+                            s, proof_line.tactic_state_right)
+        return theorem
 
     def render(self, objects, out_path, page_context=None, title=None):
         """
         Renders objects to path
         """
-        objects = [self.render_text(obj) if obj.name == 'text' else obj 
+        objects = [getattr(self, f'transform_{obj.name}', lambda x: x)(obj)
                    for obj in objects]
         page_context = page_context or dict()
         page_context['title'] = page_context.get('title', title or 'Lean')
@@ -51,9 +63,7 @@ class Renderer:
         self.env.get_template('page').stream(page_context).dump(out_path)
 
     @classmethod
-    def from_file(cls, path):
+    def from_file(cls, path, ts_filters=None):
         return cls(
-                env=Environment(loader=FileSystemLoader(path)))
-
-
+                env=Environment(loader=FileSystemLoader(path)), ts_filters=ts_filters)
 

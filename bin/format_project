@@ -3,12 +3,14 @@
 from pathlib import Path
 import os, sys, shutil, distutils.dir_util
 
+import regex
 from fire import Fire
 import toml
 
 import format_lean
 from format_lean.line_reader import FileReader
 from format_lean.renderer import Renderer
+from format_lean.server import LeanError
 from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     SectionEnd, SubSectionBegin, SubSectionEnd, TextBegin, TextEnd,
     DefinitionBegin, DefinitionEnd, 
@@ -44,7 +46,9 @@ def render_lean_project(outdir=None, templates=None, css=None,
 
     try:
         format_toml = toml.load('format.toml')
-    except:
+    except FileNotFoundError:
+        print(" I couldn't find format.toml, but I'll continue, "
+              "hoping you know what you are doing.")
         format_toml = dict()
 
     templates = templates or (format_toml.get('templates') or 
@@ -52,6 +56,7 @@ def render_lean_project(outdir=None, templates=None, css=None,
     if debug:
         print("Template folder:", templates)
 
+    only = format_toml.get('only', [])
     excludes = format_toml.get('exclude', [])
     
     try:
@@ -94,6 +99,11 @@ def render_lean_project(outdir=None, templates=None, css=None,
         else:
             shutil.copy(asset, outdir)
 
+    ts_filters = [(regex.compile(s[0]), s[1])
+            for s in format_toml.get('tactic_state_filters', [])]
+    if debug:
+        print('Tactic state filters: ', ts_filters)
+
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
             [HeaderBegin, HeaderEnd,
@@ -105,11 +115,13 @@ def render_lean_project(outdir=None, templates=None, css=None,
              LemmaBegin, LemmaEnd,
              TheoremBegin, TheoremEnd,
              ProofBegin, ProofEnd, ProofComment])
-    renderer = Renderer.from_file(templates)
+    renderer = Renderer.from_file(templates, ts_filters=ts_filters)
     
     for lean_file in Path('src').glob('**/*.lean'):
-        if str(lean_file.relative_to('src')) in excludes:
-            print('Excluding ' + str(lean_file))
+        rel_path = str(lean_file.relative_to('src'))
+        if (only and rel_path not in only) or rel_path in excludes:
+            if not only:
+                print('Excluding ' + str(lean_file))
             continue
         print('Rendering ' + str(lean_file))
         tgt_dir = Path(outdir) / lean_file.relative_to('src').parent
