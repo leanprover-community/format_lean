@@ -26,6 +26,14 @@ def color(obj):
                 line.tactic_state_right = highlight(line.tactic_state_right, lexer, formatter)
     return obj
 
+def prepare(content):
+    """ Operates some substitutions before markdown processing. """
+    for old, new in [('« ', '« '), (' »', ' »'),
+            (r'\{', r'\\{'), (r'\}', r'\\}'),
+            (r'\(', r'\\('), (r'\)', r'\\)'),
+            (r'\;', r'\\;'), (r'\,', r'\\,')]:
+        content = content.replace(old, new)
+    return content
 
 @dataclass
 class Renderer:
@@ -33,13 +41,20 @@ class Renderer:
     markdown_renderer: HTMLRenderer = field(default_factory=HTMLRenderer)
     ts_filters: List =  field(default_factory=list)
 
+    def render_markdown(self, text, par=True):
+        # par=True mean we strip <p> and </p>
+        rendered = self.markdown_renderer.render(Document(prepare(text)))
+        return rendered if par else rendered[3:-5]
+
     def transform_text(self, text):
         return Text(paragraphs=[
-            Paragraph(content=self.markdown_renderer.render(Document(par.content)))
+            Paragraph(content=self.render_markdown(par.content))
             for par in text.paragraphs])
 
     def transform_theorem(self, theorem):
+        theorem.text = self.render_markdown(theorem.text)
         for proof_item in theorem.proof.items:
+            proof_item.text = self.render_markdown(proof_item.text, par=False)
             for proof_line in proof_item.lines:
                 for r, s in self.ts_filters:
                     proof_line.tactic_state_left = r.sub(
@@ -47,6 +62,9 @@ class Renderer:
                     proof_line.tactic_state_right = r.sub(
                             s, proof_line.tactic_state_right)
         return theorem
+
+    transform_example = transform_theorem
+    transform_lemma = transform_theorem
 
     def render(self, objects, out_path, page_context=None, title=None):
         """
