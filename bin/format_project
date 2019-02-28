@@ -123,10 +123,16 @@ def render_lean_project(outdir=None, templates=None, css=None,
             if not only:
                 print('Excluding ' + str(lean_file))
             continue
-        print('Rendering ' + str(lean_file))
         tgt_dir = Path(outdir) / lean_file.relative_to('src').parent
         tgt_dir.mkdir(parents=True, exist_ok=True)
         outpath = str(Path(outdir) / lean_file.relative_to('src')).replace('.lean', '.html')
+        try:
+            if os.path.getmtime(outpath) > os.path.getmtime(lean_file):
+                print('Skipping ' + str(lean_file) + ' which is up to date')
+                continue
+        except OSError:
+            pass
+        print('Rendering ' + str(lean_file))
         try:
             lecture_reader.read_file(str(lean_file))
         except LeanError as ex:
