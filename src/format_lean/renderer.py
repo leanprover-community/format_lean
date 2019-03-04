@@ -83,5 +83,6 @@ class Renderer:
     @classmethod
     def from_file(cls, path, ts_filters=None):
         return cls(
-                env=Environment(loader=FileSystemLoader(path)), ts_filters=ts_filters)
+                env=Environment(loader=FileSystemLoader(path)),
+                ts_filters=ts_filters or [])
 

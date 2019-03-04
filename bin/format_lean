@@ -38,7 +38,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
     lean_path = f'{core_path}:{lib_path}' if lib_path else core_path
     templates = templates or str(module_path / 'templates/')
     if debug:
-        print(lean_exec_path, lean_path, templates)
+        print(f"Lean executable path: {lean_exec_path}")
+        print(f"LEAN_PATH: {lean_path}")
+        print(f"Templates folder: {templates}")
 
     outpath = outpath or inpath.replace('.lean', '.html')
 
@@ -48,7 +50,7 @@ def render_lean_file(inpath, outpath=None, outdir=None,
         outpath = str(Path(outdir) / outpath)
         for path in module_path.glob('*.css'):
             shutil.copy(path, outdir)
-        for path in module_path.glob('*.css.map')
+        for path in module_path.glob('*.css.map'):
             shutil.copy(path, outdir)
         for path in module_path.glob('*.js'):
             shutil.copy(path, outdir)
@@ -66,7 +68,9 @@ def render_lean_file(inpath, outpath=None, outdir=None,
     lecture_reader.read_file(inpath)
     renderer = Renderer.from_file(templates)
     pc = { 'csss': [css, 'colorful.css'],
-            'jss': ['jquery.min.js', 'lean.js'] }
+            'jss': ['jquery.min.js', 'lean.js'],
+            'title': inpath.replace('.lean', ''),
+            'lang': dict() }
     renderer.render(lecture_reader.output, outpath, page_context=pc)
 
 if __name__ == '__main__':
