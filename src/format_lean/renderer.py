@@ -11,6 +11,7 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 
 from format_lean.objects import Text, Paragraph
+from format_lean.tikzcd import  TikzcdRenderer
 
 lexer = LeanLexer(leanstripall=True)    
 formatter = HtmlFormatter(linenos=False) 
@@ -31,14 +32,14 @@ def prepare(content):
     for old, new in [('« ', '« '), (' »', ' »'),
             (r'\{', r'\\{'), (r'\}', r'\\}'),
             (r'\(', r'\\('), (r'\)', r'\\)'),
-            (r'\;', r'\\;'), (r'\,', r'\\,')]:
+            (r'\;', r'\\;'), (r'\,', r'\\,'), (r'\!', r'\\!')]:
         content = content.replace(old, new)
     return content
 
 @dataclass
 class Renderer:
     env: Environment = None
-    markdown_renderer: HTMLRenderer = field(default_factory=HTMLRenderer)
+    markdown_renderer:TikzcdRenderer = field(default_factory=TikzcdRenderer)
     ts_filters: List =  field(default_factory=list)
 
     def render_markdown(self, text, par=True):
@@ -65,6 +66,10 @@ class Renderer:
 
     transform_example = transform_theorem
     transform_lemma = transform_theorem
+
+    def transform_trad(self, theorem):
+        theorem.content = self.render_markdown(theorem.content)
+        return theorem
 
     def render(self, objects, out_path, page_context=None, title=None):
         """

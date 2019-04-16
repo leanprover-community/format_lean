@@ -110,6 +110,13 @@ class Example(Bilingual):
 
     def proof_append(self, item):
         self.proof.items.append(item)
+
+
+@dataclass
+class Trad(Paragraph):
+    name: str = 'trad'
+    kind: str = 'Théorème'
+
 #################
 #  Line readers #
 #################
@@ -363,3 +370,23 @@ class ProofComment(LineReader):
         file_reader.normal_line_handler = normal_line
         return True
 
+class TradBegin(LineReader):
+    regex = regex.compile(r'\s*/-\s*trad ([^\s]*)\s*$')
+
+    def run(self, m, file_reader):
+        file_reader.status = 'trad_text'
+        thm = Trad(kind=m.group(1))
+        file_reader.output.append(thm)
+        def normal_line(file_reader, line):
+            thm.append(line)
+        file_reader.normal_line_handler = normal_line
+        return True
+
+class TradEnd(LineReader):
+    regex = regex.compile(r'-/')
+
+    def run(self, m, file_reader):
+        if file_reader.status is not 'trad_text':
+            return False
+        file_reader.reset()
+        return True

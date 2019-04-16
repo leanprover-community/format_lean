@@ -1,0 +1,8 @@
+<div class="theorem_wrapper">
+  <span class="theorem_label">{{ obj.kind }}</span>
+  <div class="theorem_content">
+	<div class="trad_theorem_text">
+	  {{ obj.content }}
+	</div>
+  </div>
+</div>

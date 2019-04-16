@@ -221,4 +221,11 @@ span.tactic_right:hover {
   background: #c4c4c4;
 }
 
+div.tikzcd {
+  display: block;
+  margin: 0.5rem auto;
+  overflow: auto;
+  text-align: center;
+}
+
 /*# sourceMappingURL=teach_lean.css.map */

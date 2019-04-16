@@ -18,7 +18,8 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     LemmaBegin, LemmaEnd,
     TheoremBegin, TheoremEnd,
     ProofBegin, ProofEnd,
-    ProofComment)
+    ProofComment,
+    TradBegin, TradEnd)
 
 module_path = Path(format_lean.__file__).parent
 
@@ -114,7 +115,8 @@ def render_lean_project(outdir=None, templates=None, css=None,
              ExampleBegin, ExampleEnd,
              LemmaBegin, LemmaEnd,
              TheoremBegin, TheoremEnd,
-             ProofBegin, ProofEnd, ProofComment])
+             ProofBegin, ProofEnd, ProofComment,
+             TradBegin, TradEnd])
     renderer = Renderer.from_file(templates, ts_filters=ts_filters)
     
     for lean_file in Path('src').glob('**/*.lean'):

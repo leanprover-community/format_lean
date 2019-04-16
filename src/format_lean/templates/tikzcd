@@ -1,0 +1,8 @@
+\documentclass{standalone}
+\usepackage{tikz-cd}
+
+\usepackage{unicode-math}
+
+\begin{document}
+\begin{tikzcd}{{ cd }}\end{tikzcd}
+\end{document}
