@@ -175,6 +175,7 @@ class SectionBegin(LineReader):
         def normal_line(file_reader, line):
             sec.title_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -198,6 +199,7 @@ class SubSectionBegin(LineReader):
         def normal_line(file_reader, line):
             sec.title_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -221,6 +223,7 @@ class DefinitionBegin(LineReader):
         def normal_line(file_reader, line):
             defi.text_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -251,6 +254,7 @@ class LemmaBegin(LineReader):
         def normal_line(file_reader, line):
             lemma.text_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -278,6 +282,7 @@ class TheoremBegin(LineReader):
         def normal_line(file_reader, line):
             theorem.text_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -305,6 +310,7 @@ class ExampleBegin(LineReader):
         def normal_line(file_reader, line):
             example.text_append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 
@@ -380,6 +386,7 @@ class TradBegin(LineReader):
         def normal_line(file_reader, line):
             thm.append(line)
         file_reader.normal_line_handler = normal_line
+        file_reader.blank_line_handler = normal_line
         return True
 
 class TradEnd(LineReader):

@@ -32,6 +32,7 @@ def prepare(content):
     for old, new in [('« ', '« '), (' »', ' »'),
             (r'\{', r'\\{'), (r'\}', r'\\}'),
             (r'\(', r'\\('), (r'\)', r'\\)'),
+            (r'\[', r'\\['), (r'\]', r'\\]'),
             (r'\;', r'\\;'), (r'\,', r'\\,'), (r'\!', r'\\!')]:
         content = content.replace(old, new)
     return content
