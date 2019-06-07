@@ -4,7 +4,11 @@ code {
 }
 
 div#content {
-  width: 70%;
+  width: 100%;
+}
+
+div#content > p {
+  width: 80%;
 }
 
 @media (max-width: 760px) {
@@ -131,13 +135,13 @@ div.proof_content {
 
 div.small_proof_content {
   padding-left: 0.5rem;
-  width: 59%;
+  width: 49%;
   float: left;
 }
 
 div.small_tactic_state {
   padding-left: 0.5rem;
-  width: 39%;
+  width: 49%;
   float: left;
 }
 
@@ -195,6 +199,10 @@ div.theorem_wrapper {
   font-size: 1.4rem;
 }
 
+div.definition_wrapper {
+  font-size: 1.4rem;
+}
+
 pre {
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
@@ -219,6 +227,11 @@ span.tactic_right {
 span.tactic_right:hover {
   transition: all 0.2s ease;
   background: #c4c4c4;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: keep-all;
 }
 
 div.tikzcd {

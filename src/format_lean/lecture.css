@@ -645,13 +645,13 @@ div.proof_content {
 
 div.small_proof_content {
   padding-left: 0.5rem;
-  width: 59%;
+  width: 49%;
   float: left;
 }
 
 div.small_tactic_state {
   padding-left: 0.5rem;
-  width: 39%;
+  width: 49%;
   float: left;
 }
 

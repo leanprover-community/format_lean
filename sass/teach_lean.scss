@@ -6,7 +6,11 @@ code {
 	font-weight: bold
 }
 div#content {
-	width: 70%;
+	width: 100%;
+}
+
+div#content > p {
+	width: 80%;
 }
 @media (max-width: 760px) {
 div#content {
@@ -21,6 +25,9 @@ div.lemma_wrapper {
 	font-size: 1.4rem;
 }
 div.theorem_wrapper {
+	font-size: 1.4rem;
+}
+div.definition_wrapper {
 	font-size: 1.4rem;
 }
 
@@ -47,4 +54,7 @@ span.tactic_right:hover
 { transition: all .2s ease;
   background: darken($see_ts, 10%); }
 
+	pre {
+	white-space: pre-wrap;
+  word-break: keep-all }
 @import 'tikzcd' ;
