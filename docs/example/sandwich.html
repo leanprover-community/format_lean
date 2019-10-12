@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>sandwich</title>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML" async>
+  </script>
+  
+  <link href="lecture.css" rel="stylesheet">
+  
+  <link href="colorful.css" rel="stylesheet">
+  
+
+</head>
+<body>
+<div id="wrapper">
+<div id="content">
+
+  <h1>The sandwich theorem</h1>
+
+
+  <p>In this demo file, we define limits of sequences of real numbers and prove the sandwich theorem.</p>
+
+
+<div class="definition_wrapper">
+  <span class="definition_label">Definition</span>
+  <div class="definition_content">
+    <div class="definition_text">
+      A sequence of real numbers $a_n$ tends to $l$ if
+$\forall \varepsilon > 0, \exists N, \forall n \geq N, |a_n - l | \leq \varepsilon$.
+
+    </div>
+    <div class="definition_lean">
+     <div class="highlight"><pre><span class="kd">definition</span> <span class="n">is_limit</span> <span class="o">(</span><span class="n">a</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">(</span><span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">:=</span>
+<span class="bp">∀</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span> <span class="bp">∃</span> <span class="n">N</span><span class="o">,</span> <span class="bp">∀</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span> <span class="bp">|</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+   
+    </div>
+  </div>
+</div>
+<div class="theorem_wrapper">
+  <span class="theorem_label">Theorem</span>
+  <div class="theorem_content">
+	<div class="theorem_text">
+	  <p>If $(a_n)$, $(b_n)$, and $(c_n)$ are three real-valued sequences satisfying $a_n ≤ b_n ≤ c_n$ for all $n$, and if furthermore $a_n→ℓ$ and $c_n→ℓ$, then $b_n→ℓ$.</p>
+
+	</div>
+
+	<div class="theorem_lean">
+	  <div class="highlight"><pre><span class="kd">theorem</span> <span class="n">sandwich</span> <span class="o">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">)</span>
+  <span class="o">(</span><span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">(</span><span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">)</span> <span class="o">(</span><span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">)</span> 
+  <span class="o">(</span><span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">,</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">)</span> <span class="o">(</span><span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">,</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">)</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">b</span> <span class="n">l</span> <span class="o">:=</span>
+</pre></div>
+
+	</div>
+  </div>
+
+  <div class="proof_wrapper">
+    <span class="proof_label">Proof</span>
+	<div class="proof_content">
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">We need to show that for all $ε&gt;0$ there exists $N$ such that $n≥N$ implies $|b_n-ℓ|&lt;ε$. So choose ε &gt; 0.</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">intros</span> <span class="n">ε</span> <span class="n">Hε</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="n">is_limit</span> <span class="n">b</span> <span class="n">l</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">we now need an $N$. As usual it is the max of two other N's, one coming from $(a_n)$ and one from $(c_n)$. Choose $N_a$ and $N_c$ such that $|aₙ - l| &lt; ε$ for $n ≥ Na$ and $|cₙ - l| &lt; ε$ for $n ≥ Nc$.</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">cases</span> <span class="n">ha</span> <span class="n">ε</span> <span class="n">Hε</span> <span class="k">with</span> <span class="n">Na</span> <span class="n">Ha</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">cases</span> <span class="n">hc</span> <span class="n">ε</span> <span class="n">Hε</span> <span class="k">with</span> <span class="n">Nc</span> <span class="n">Hc</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">Now let $N$ be the max of $N_a$ and $N_c$; we claim that this works.</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">let</span> <span class="n">N</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">use</span> <span class="n">N</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span>
+<span class="bp">⊢</span> <span class="bp">∃</span> <span class="o">(</span><span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">Note that N ≥ Na and N ≥ Nc,</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span> <span class="o">:=</span> <span class="kd">by</span> <span class="n">obvious_ineq</span><span class="o">,</span>  
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span> <span class="o">:=</span> <span class="kd">by</span> <span class="n">obvious_ineq</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">so for all n ≥ N,</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">intros</span> <span class="n">n</span> <span class="n">Hn</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">we have $n≥ N_a$ and $n\geq N_c$, so $aₙ ≤ bₙ ≤ cₙ$, and $|aₙ - l|, |bₙ - l|$ are both less than $\epsilon$.</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">hab</span> <span class="n">n</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">hbc</span> <span class="n">n</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="o">:=</span> <span class="n">Ha</span> <span class="n">n</span> <span class="o">(</span><span class="n">le_trans</span> <span class="n">HNa</span> <span class="n">Hn</span><span class="o">),</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="k">have</span> <span class="n">h4</span> <span class="o">:</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="o">:=</span> <span class="n">Hc</span> <span class="n">n</span> <span class="o">(</span><span class="n">le_trans</span> <span class="n">HNc</span> <span class="n">Hn</span><span class="o">),</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">h4</span> <span class="o">:</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	  <div class="proof_item">
+		<span class="proof_item_text">The result now follows easily from these inequalities (as $l-ε&lt;a_n≤b_n≤c_n&lt;l+ε$).</span>
+    <div class="proof_item_lean">
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">revert</span> <span class="n">h3</span><span class="o">,</span><span class="n">revert</span> <span class="n">h4</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">h4</span> <span class="o">:</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">unfold</span> <span class="n">abs</span><span class="o">,</span><span class="n">unfold</span> <span class="n">max</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="n">ite</span> <span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span>
+  <span class="n">ite</span> <span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="n">ite</span> <span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+      </div>
+      
+      <div class="proof_line">
+        <span class="tactic_left" href="#"></span>
+        <div class="highlight"><pre>  <span class="n">split_ifs</span><span class="bp">;</span><span class="n">intros</span><span class="bp">;</span><span class="n">linarith</span><span class="o">,</span>
+</pre></div>
+
+		<span class="tactic_right" href="#"></span>
+		<span class="tactic_state_left"><div class="highlight"><pre><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">,</span>
+<span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">ε</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">,</span>
+<span class="n">Hε</span> <span class="o">:</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span>
+<span class="n">Na</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Ha</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Na</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">Nc</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">),</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">Nc</span> <span class="bp">→</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span><span class="o">,</span>
+<span class="n">N</span> <span class="o">:</span> <span class="n">ℕ</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+<span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">n</span> <span class="o">:</span> <span class="n">ℕ</span><span class="o">,</span>
+<span class="n">Hn</span> <span class="o">:</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span>
+<span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">,</span>
+<span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span>
+<span class="bp">⊢</span> <span class="n">ite</span> <span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span>
+  <span class="n">ite</span> <span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="bp">→</span> <span class="n">ite</span> <span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">≤</span> <span class="bp">-</span><span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="bp">-</span><span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">))</span> <span class="o">(</span><span class="n">b</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="o">)</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+</pre></div>
+</span>
+		<span class="tactic_state_right"><div class="highlight"><pre><span class="n">no</span> <span class="n">goals</span>
+</pre></div>
+</span>
+      </div>
+      
+    </div>
+	  </div>
+	  
+	</div>
+    <span class="proof_qed">QED.</span>
+  </div>
+</div>
+</div>
+<div id="dragbar"></div>
+<div id="tactic_state_wrapper">
+  <h1 id="tactic_state_header">Tactic state</h1>
+<div id="tactic_state">
+</div>
+</div>
+</div>
+
+<script src="jquery.min.js" type="text/javascript"></script>
+
+<script src="lean.js" type="text/javascript"></script>
+
+</body>
+</html>

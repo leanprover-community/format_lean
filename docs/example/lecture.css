@@ -1,0 +1,695 @@
+@charset "UTF-8";
+h1#tactic_state_header {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: #0f2f48;
+}
+
+#dragbar {
+  background-color: #0f2f48;
+}
+
+body {
+  color: #0a0a14;
+  background-color: #e8e8e8;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  overflow-x: hidden;
+  background: #f4f4f4;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.clear:after {
+  font-size: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  height: 0;
+  content: " ";
+}
+
+.clear {
+  display: inline-block;
+}
+
+/* start commented backslash hack \*/
+* html .clear {
+  height: 1%;
+}
+
+.clear {
+  display: block;
+}
+
+/* close commented backslash hack */
+/****************************************
+BASIC ELEMENTS
+*****************************************/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+hr {
+  clear: both;
+  border: none;
+  outline: none;
+}
+
+em {
+  font-style: italic;
+}
+
+a {
+  text-decoration: underline;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+
+ul,
+ol {
+  font-size: 14px;
+  padding: 0 0 0 33px;
+}
+ul li,
+ol li {
+  margin: 0;
+}
+
+blockquote {
+  padding: 0 15px 0 40px;
+}
+
+table {
+  font-size: 13px;
+  width: 100%;
+  margin: 20px 0;
+  background: white;
+}
+table th {
+  font-size: 16px;
+  font-weight: bold;
+}
+table tr td {
+  padding: 7px;
+}
+
+::selection {
+  color: white;
+  background: #000;
+}
+
+::-moz-selection {
+  color: white;
+  background: #000;
+}
+
+html {
+  position: relative;
+}
+
+body {
+  margin: 0;
+}
+
+div#wrapper {
+  width: 100%;
+  min-height: 100%;
+}
+
+div#content {
+  padding: 1rem;
+  width: 70%;
+}
+
+#dragbar {
+  position: absolute;
+  top: 0;
+  min-height: 100%;
+  left: 70%;
+  width: 3px;
+  cursor: col-resize;
+}
+
+div#tactic_state_wrapper {
+  position: fixed;
+  margin-left: 70%;
+  top: 0px;
+  padding: 1rem;
+}
+
+div.content {
+  line-height: 1.4rem;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
+li > p {
+  margin: 0.28rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 2rem;
+  margin: 1rem 0;
+  color: #0f2f48;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 0.8rem 0;
+  color: #0f2f48;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 0.67rem 0;
+  color: #0f2f48;
+}
+
+h4 {
+  font-size: 1rem;
+  margin: 0.67rem 0;
+  color: #0f2f48;
+}
+
+p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address styling not present in Safari 5 and Chrome.
+ */
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Correct font family set oddly in Safari 5 and Chrome.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1rem;
+}
+
+/**
+ * Improve readability of pre-formatted text in all browsers.
+ */
+pre {
+  white-space: pre-wrap;
+}
+
+/**
+ * Set consistent quote types.
+ */
+q {
+  quotes: "“" "”" "‘" "’";
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5rem;
+}
+
+sub {
+  bottom: -0.25rem;
+}
+
+/* Font Selection */
+.mdseries, .textmf {
+  font-weight: normal;
+}
+
+.bfseries, .textbf {
+  font-weight: bold;
+}
+
+.rmfamily, .textrm {
+  font-family: serif;
+}
+
+.sffamily, .textsf {
+  font-family: sans-serif;
+}
+
+.ttfamily, .texttt {
+  font-family: monospace;
+}
+
+.upshape, .textup {
+  text-transform: uppercase;
+}
+
+.itshape, .textit {
+  font-style: italic;
+}
+
+.slshape, .textsl {
+  font-style: oblique;
+}
+
+.scshape, .textsc {
+  font-variant: small-caps;
+}
+
+small.tiny {
+  font-size: x-small;
+}
+
+small.scriptsize {
+  font-size: smaller;
+}
+
+small.footnotesize {
+  font-size: small;
+}
+
+small.small {
+  font-size: small;
+}
+
+.normalsize {
+  font-size: normal;
+}
+
+big.large {
+  font-size: large;
+}
+
+big.xlarge {
+  font-size: x-large;
+}
+
+big.xxlarge {
+  font-size: x-large;
+}
+
+big.huge {
+  font-size: xx-large;
+}
+
+big.xhuge {
+  font-size: xx-large;
+}
+
+/* Fonts */
+.rm {
+  font-family: serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.cal {
+  font-family: serif;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.it {
+  font-family: serif;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.sl {
+  font-family: serif;
+  font-style: oblique;
+  font-weight: normal;
+}
+
+.bf {
+  font-family: serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.tt {
+  font-family: monospace;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.underbar {
+  text-decoration: underline;
+}
+
+/* Boxes */
+.fbox, .framebox {
+  border: 1px black solid;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+/* Quotations and Verse */
+.quotation p, .quote p, .verse p {
+  margin-top: 0px;
+  margin-bottom: 0.5em;
+}
+
+hr {
+  color: black;
+}
+
+dd {
+  margin-left: 3rem;
+}
+
+dd p {
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+div.definition_wrapper {
+  margin-top: 1rem;
+}
+
+span.definition_label {
+  font-weight: bold;
+}
+
+div.definition_content {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 0.15rem solid black;
+}
+
+div.definition_text:hover {
+  transition: all 0.2s ease;
+  background: #cfcfcf;
+}
+
+div.definition_lean {
+  display: none;
+}
+
+div.example_wrapper {
+  margin-top: 1rem;
+}
+
+span.example_label {
+  font-weight: bold;
+}
+
+div.example_content {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 0.25rem solid black;
+}
+
+div.example_text:hover {
+  transition: all 0.2s ease;
+  background: #cfcfcf;
+}
+
+div.example_lean {
+  display: none;
+}
+
+div.lemma_wrapper {
+  margin-top: 1rem;
+}
+
+span.lemma_label {
+  font-weight: bold;
+}
+
+div.lemma_content {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 0.15rem solid black;
+}
+
+div.lemma_text:hover {
+  transition: all 0.2s ease;
+  background: #cfcfcf;
+}
+
+div.lemma_lean {
+  display: none;
+}
+
+div.theorem_wrapper {
+  margin-top: 1rem;
+}
+
+span.theorem_label {
+  font-weight: bold;
+}
+
+div.theorem_content {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 0.25rem solid black;
+}
+
+div.theorem_lean {
+  display: none;
+}
+
+div.proof_wrapper {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+div.proof_wrapper::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+span.proof_label {
+  font-weight: bold;
+  display: block;
+}
+
+span.proof_qed {
+  font-weight: bold;
+  display: block;
+}
+
+div.proof_content {
+  padding-left: 0.5rem;
+}
+
+div.small_proof_content {
+  padding-left: 0.5rem;
+  width: 49%;
+  float: left;
+}
+
+div.small_tactic_state {
+  padding-left: 0.5rem;
+  width: 49%;
+  float: left;
+}
+
+div.proof_item_lean {
+  display: none;
+}
+
+div.proof_line {
+  display: flex;
+}
+
+div.inline_proof_item {
+  display: inline;
+}
+
+span.tactic_left:hover {
+  transition: all 0.2s ease;
+  background: #cfcfcf;
+}
+
+span.tactic_left {
+  width: 3rem;
+  background: #dbdbdb;
+}
+
+span.tactic_right {
+  margin-left: 2rem;
+  width: 3rem;
+  background: #dbdbdb;
+}
+
+span.tactic_right:hover {
+  transition: all 0.2s ease;
+  background: #cfcfcf;
+}
+
+span[class^=tactic_state_] {
+  display: none;
+}
+
+/*# sourceMappingURL=lecture.css.map */
