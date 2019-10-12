@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 from pathlib import Path
-import os, shutil, distutils
+import os, shutil, distutils.spawn
 
 from fire import Fire
 import toml
