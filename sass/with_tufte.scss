@@ -1,6 +1,11 @@
 $show-lean-proofs: false;
 $show-lean-statements: false;
 $background-color: #fffff8;
+body {
+    width: 100%;
+    max-width: 100%
+}
+
 code {
 	font-size: 1.2rem;
 	font-weight: bold

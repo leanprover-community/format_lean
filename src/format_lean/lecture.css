@@ -253,7 +253,7 @@ div#wrapper {
 }
 
 div#content {
-  margin: auto;
+  padding: 1rem;
   width: 70%;
 }
 
