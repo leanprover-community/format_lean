@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<title>Format Lean</title>
+<link rel="canonical" href="https://leanprover-community.github.io/format_lean/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="colorful.css">
+  </head>
+  <body>
+
+<div class="highlight"><pre><span></span><span class="c1">-- begin header</span>
+
+<span class="c1">-- Everything in the header will be hidden in the HTML file.</span>
+<span class="kn">import</span> <span class="n">data</span><span class="bp">.</span><span class="n">real</span><span class="bp">.</span><span class="n">basic</span>
+
+<span class="kn">notation</span> <span class="bp">`|`</span> <span class="n">x</span> <span class="bp">`|`</span> <span class="o">:=</span> <span class="n">abs</span> <span class="n">x</span>
+
+<span class="bp">@</span><span class="o">[</span><span class="n">user_attribute</span><span class="o">]</span>
+<span class="n">meta</span> <span class="n">def</span> <span class="n">ineq_rules</span> <span class="o">:</span> <span class="n">user_attribute</span> <span class="o">:=</span>
+<span class="o">{</span> <span class="n">name</span> <span class="o">:=</span> <span class="bp">`</span><span class="n">ineq_rules</span><span class="o">,</span>
+  <span class="n">descr</span> <span class="o">:=</span> <span class="s2">&quot;lemmas usable to prove inequalities&quot;</span> <span class="o">}</span>
+
+<span class="n">attribute</span> <span class="o">[</span><span class="n">ineq_rules</span><span class="o">]</span> <span class="n">add_lt_add</span> <span class="n">le_max_left</span> <span class="n">le_max_right</span>
+
+<span class="n">meta</span> <span class="n">def</span> <span class="n">obvious_ineq</span> <span class="o">:=</span> <span class="bp">`</span><span class="o">[</span><span class="n">linarith</span> <span class="bp">&lt;|&gt;</span> <span class="n">apply_rules</span> <span class="n">ineq_rules</span><span class="o">]</span>
+<span class="n">run_cmd</span> <span class="n">add_interactive</span> <span class="o">[</span><span class="bp">`</span><span class="n">obvious_ineq</span><span class="o">]</span>
+<span class="c1">-- end header</span>
+
+<span class="c">/-</span><span class="cm"></span>
+<span class="cm"># The sandwich theorem</span>
+
+<span class="cm">In this demo file, we define limits of sequences of real numbers and prove the sandwich theorem.</span>
+<span class="cm">-/</span>
+
+<span class="c">/-</span><span class="cm"> Definition</span>
+<span class="cm">A sequence of real numbers $a_n$ tends to $l$ if</span>
+<span class="cm">$\forall \varepsilon &gt; 0, \exists N, \forall n \geq N, |a_n - l | \leq \varepsilon$.</span>
+<span class="cm">-/</span>
+<span class="kn">definition</span> <span class="n">is_limit</span> <span class="o">(</span><span class="n">a</span> <span class="o">:</span> <span class="bp">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">(</span><span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">:=</span>
+<span class="bp">∀</span> <span class="n">ε</span> <span class="bp">&gt;</span> <span class="mi">0</span><span class="o">,</span> <span class="bp">∃</span> <span class="n">N</span><span class="o">,</span> <span class="bp">∀</span> <span class="n">n</span> <span class="bp">≥</span> <span class="n">N</span><span class="o">,</span> <span class="bp">|</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span> <span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span>
+
+<span class="c">/-</span><span class="cm"> Theorem</span>
+<span class="cm">If $(a_n)$, $(b_n)$, and $(c_n)$ are three real-valued sequences satisfying $a_n ≤ b_n ≤ c_n$ for all $n$, and if furthermore $a_n→ℓ$ and $c_n→ℓ$, then $b_n→ℓ$.</span>
+<span class="cm">-/</span>
+<span class="kn">theorem</span> <span class="n">sandwich</span> <span class="o">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">:</span> <span class="bp">ℕ</span> <span class="bp">→</span> <span class="n">ℝ</span><span class="o">)</span>
+  <span class="o">(</span><span class="n">l</span> <span class="o">:</span> <span class="n">ℝ</span><span class="o">)</span> <span class="o">(</span><span class="n">ha</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">a</span> <span class="n">l</span><span class="o">)</span> <span class="o">(</span><span class="n">hc</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">c</span> <span class="n">l</span><span class="o">)</span> 
+  <span class="o">(</span><span class="n">hab</span> <span class="o">:</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">,</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span><span class="o">)</span> <span class="o">(</span><span class="n">hbc</span> <span class="o">:</span> <span class="bp">∀</span> <span class="n">n</span><span class="o">,</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span><span class="o">)</span> <span class="o">:</span> <span class="n">is_limit</span> <span class="n">b</span> <span class="n">l</span> <span class="o">:=</span>
+<span class="k">begin</span>
+  <span class="c1">-- We need to show that for all $ε&gt;0$ there exists $N$ such that $n≥N$ implies $|b_n-ℓ|&lt;ε$. So choose ε &gt; 0.</span>
+  <span class="n">intros</span> <span class="n">ε</span> <span class="n">Hε</span><span class="o">,</span>
+  <span class="c1">-- we now need an $N$. As usual it is the max of two other N&#39;s, one coming from $(a_n)$ and one from $(c_n)$. Choose $N_a$ and $N_c$ such that $|aₙ - l| &lt; ε$ for $n ≥ Na$ and $|cₙ - l| &lt; ε$ for $n ≥ Nc$.</span>
+  <span class="n">cases</span> <span class="n">ha</span> <span class="n">ε</span> <span class="n">Hε</span> <span class="k">with</span> <span class="n">Na</span> <span class="n">Ha</span><span class="o">,</span>
+  <span class="n">cases</span> <span class="n">hc</span> <span class="n">ε</span> <span class="n">Hε</span> <span class="k">with</span> <span class="n">Nc</span> <span class="n">Hc</span><span class="o">,</span>
+  <span class="c1">-- Now let $N$ be the max of $N_a$ and $N_c$; we claim that this works.</span>
+  <span class="k">let</span> <span class="n">N</span> <span class="o">:=</span> <span class="n">max</span> <span class="n">Na</span> <span class="n">Nc</span><span class="o">,</span>
+  <span class="n">use</span> <span class="n">N</span><span class="o">,</span>
+  <span class="c1">-- Note that N ≥ Na and N ≥ Nc,</span>
+  <span class="k">have</span> <span class="n">HNa</span> <span class="o">:</span> <span class="n">Na</span> <span class="bp">≤</span> <span class="n">N</span> <span class="o">:=</span> <span class="k">by</span> <span class="n">obvious_ineq</span><span class="o">,</span>  
+  <span class="k">have</span> <span class="n">HNc</span> <span class="o">:</span> <span class="n">Nc</span> <span class="bp">≤</span> <span class="n">N</span> <span class="o">:=</span> <span class="k">by</span> <span class="n">obvious_ineq</span><span class="o">,</span>
+  <span class="c1">-- so for all n ≥ N, </span>
+  <span class="n">intros</span> <span class="n">n</span> <span class="n">Hn</span><span class="o">,</span>
+  <span class="c1">-- we have $n≥ N_a$ and $n\geq N_c$, so $aₙ ≤ bₙ ≤ cₙ$, and $|aₙ - l|, |bₙ - l|$ are both less than $\epsilon$.</span>
+  <span class="k">have</span> <span class="n">h1</span> <span class="o">:</span> <span class="n">a</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">b</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">hab</span> <span class="n">n</span><span class="o">,</span>
+  <span class="k">have</span> <span class="n">h2</span> <span class="o">:</span> <span class="n">b</span> <span class="n">n</span> <span class="bp">≤</span> <span class="n">c</span> <span class="n">n</span> <span class="o">:=</span> <span class="n">hbc</span> <span class="n">n</span><span class="o">,</span>
+  <span class="k">have</span> <span class="n">h3</span> <span class="o">:</span> <span class="bp">|</span><span class="n">a</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="o">:=</span> <span class="n">Ha</span> <span class="n">n</span> <span class="o">(</span><span class="n">le_trans</span> <span class="n">HNa</span> <span class="n">Hn</span><span class="o">),</span>
+  <span class="k">have</span> <span class="n">h4</span> <span class="o">:</span> <span class="bp">|</span><span class="n">c</span> <span class="n">n</span> <span class="bp">-</span> <span class="n">l</span><span class="bp">|</span> <span class="bp">&lt;</span> <span class="n">ε</span> <span class="o">:=</span> <span class="n">Hc</span> <span class="n">n</span> <span class="o">(</span><span class="n">le_trans</span> <span class="n">HNc</span> <span class="n">Hn</span><span class="o">),</span>
+  <span class="c1">-- The result now follows easily from these inequalities (as $l-ε&lt;a_n≤b_n≤c_n&lt;l+ε$). </span>
+  <span class="n">revert</span> <span class="n">h3</span><span class="o">,</span><span class="n">revert</span> <span class="n">h4</span><span class="o">,</span>
+  <span class="n">unfold</span> <span class="n">abs</span><span class="o">,</span><span class="n">unfold</span> <span class="n">max</span><span class="o">,</span>
+  <span class="n">split_ifs</span><span class="bp">;</span><span class="n">intros</span><span class="bp">;</span><span class="n">linarith</span><span class="o">,</span>
+<span class="kn">end</span>
+</pre></div>
+  </body>
+</html>
+
