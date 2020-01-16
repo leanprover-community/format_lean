@@ -96,7 +96,7 @@ def render_lean_project(outdir=None, templates=None, css=None,
         if debug:
             print("Copying asset:", asset)
         if Path(asset).is_dir():
-            distutils.dir_util.copy_tree(asset, outdir)
+            distutils.dir_util.copy_tree(asset, str(Path(outdir)/asset))
         else:
             shutil.copy(asset, outdir)
 
