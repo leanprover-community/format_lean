@@ -39,7 +39,7 @@ def render_lean_project(outdir=None, templates=None, css=None,
         if 'git' in dep_info:
             paths.append(str(Path('_target/deps') / dep / 'src'))
         else:
-            paths.append(dep_info['path'])
+            paths.extend([dep_info['path'], str(Path(dep_info['path'])/'src')])
     lean_path = ':'.join(paths)
     if debug:
         print("Lean executable path:", lean_exec_path)
