@@ -363,7 +363,7 @@ class ProofComment(LineReader):
             item = file_reader.output[-1].proof.items[-1]
         else:
             return False
-        item.text_append(m.group(1))
+        item.text_append(' ' + m.group(1))
         def normal_line(file_reader, line):
             file_reader.status = 'proof'
             tsl = file_reader.server.info(file_reader.filename,
