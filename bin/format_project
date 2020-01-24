@@ -18,7 +18,7 @@ from format_lean.objects import (HeaderBegin, HeaderEnd, SectionBegin,
     LemmaBegin, LemmaEnd,
     TheoremBegin, TheoremEnd,
     ProofBegin, ProofEnd,
-    ProofComment,
+    ProofComment, Title,
     TradBegin, TradEnd)
 
 module_path = Path(format_lean.__file__).parent
@@ -107,7 +107,8 @@ def render_lean_project(outdir=None, templates=None, css=None,
 
 
     lecture_reader = FileReader(lean_exec_path, lean_path, 
-            [HeaderBegin, HeaderEnd,
+            [Title,
+             HeaderBegin, HeaderEnd,
              SectionBegin, SectionEnd, 
              SubSectionBegin, SubSectionEnd,
              TextBegin, TextEnd, 
@@ -147,7 +148,8 @@ def render_lean_project(outdir=None, templates=None, css=None,
             print('css paths: ', css_paths)
         pc = { 'csss': css_paths,
                'jss': [prefix + js  for js in jss],
-               'title': lean_file.name.replace('.lean', ''),
+               'title': lecture_reader.metadata.get('title', 
+                   lean_file.name.replace('.lean', '')),
                'lang': lang}
         renderer.render(lecture_reader.output, outpath, page_context=pc)
         lecture_reader.hard_reset()

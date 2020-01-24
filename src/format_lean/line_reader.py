@@ -22,6 +22,7 @@ class FileReader:
         self.normal_line_handler = dismiss_line
         self.blank_line_handler = dismiss_line
         self.server = Server(lean_exec_path, lean_path)
+        self.metadata = dict()
 
     def reset(self):
         self.status = ''

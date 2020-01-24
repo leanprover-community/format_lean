@@ -121,6 +121,13 @@ class Trad(Paragraph):
 #  Line readers #
 #################
 
+class Title(LineReader):
+    regex = regex.compile(r'^-- Title: (.*)$')
+
+    def run(self, m, file_reader):
+        file_reader.metadata['title'] = m.group(1)
+
+
 class HeaderBegin(LineReader):
     regex = regex.compile(r'-- begin header\s*')
 
