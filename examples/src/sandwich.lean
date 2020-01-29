@@ -38,7 +38,7 @@ theorem sandwich (a b c : ℕ → ℝ)
 begin
   -- We need to show that for all $ε>0$ there exists $N$ such that $n≥N$ implies $|b_n-ℓ|<ε$. So choose ε > 0.
   intros ε Hε,
-  -- we now need an $N$. As usual it is the max of two other N's, one coming from $(a_n)$ and one from $(c_n)$. Choose $N_a$ and $N_c$ such that $|aₙ - l| < ε$ for $n ≥ Na$ and $|cₙ - l| < ε$ for $n ≥ Nc$.
+  -- we now need an $N$. As usual it is the max of two other N's, one coming from $(a_n)$ and one from $(c_n)$. Choose $N_a$ and $N_c$ such that $|aₙ - l| < ε$ for $n ≥ N_a$ and $|cₙ - l| < ε$ for $n ≥ N_c$.
   cases ha ε Hε with Na Ha,
   cases hc ε Hε with Nc Hc,
   -- Now let $N$ be the max of $N_a$ and $N_c$; we claim that this works.
