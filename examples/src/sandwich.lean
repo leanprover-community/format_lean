@@ -44,7 +44,7 @@ begin
   -- Now let $N$ be the max of $N_a$ and $N_c$; we claim that this works.
   let N := max Na Nc,
   use N,
-  -- Note that N ≥ Na and N ≥ Nc,
+  -- Note that $N ≥ N_a$ and $N ≥ N_c$,
   have HNa : Na ≤ N := by obvious_ineq,  
   have HNc : Nc ≤ N := by obvious_ineq,
   -- so for all n ≥ N, 
