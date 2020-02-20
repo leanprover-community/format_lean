@@ -86,10 +86,11 @@ def render_lean_project(outdir=None, templates=None, css=None,
         shutil.copy(module_path /'jquery.min.js', outdir)
         jss = ['jquery.min.js'] + jss
     else:
-        jss = []
+        jss = ['jquery.min.js']
         for path in module_path.glob('*.js'):
-            jss.append(path.name)
             shutil.copy(path, outdir)
+            if path.name is not 'jquery.min.js':
+                jss.append(path.name)
 
     assets = format_toml.get('assets', [])
     for asset in assets:
