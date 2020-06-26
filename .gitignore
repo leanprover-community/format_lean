@@ -1,4 +1,5 @@
 **/__pycache__
 node_modules/
 package-lock.json
-**/Lean_formatter.egg-info
+format_lean.egg-info/
+examples/leanpkg.path
