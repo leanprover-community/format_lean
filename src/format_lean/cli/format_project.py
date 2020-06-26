@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 from pathlib import Path
 import os, sys, shutil, distutils.dir_util
 
@@ -155,5 +153,5 @@ def render_lean_project(outdir=None, templates=None, css=None,
         renderer.render(lecture_reader.output, outpath, page_context=pc)
         lecture_reader.hard_reset()
 
-if __name__ == '__main__':
+def main():
     Fire(render_lean_project)

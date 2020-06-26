@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 from pathlib import Path
 import os, shutil, distutils.spawn
 
@@ -73,5 +71,5 @@ def render_lean_file(inpath, outpath=None, outdir=None,
             'lang': dict() }
     renderer.render(lecture_reader.output, outpath, page_context=pc)
 
-if __name__ == '__main__':
+def main():
     Fire(render_lean_file)

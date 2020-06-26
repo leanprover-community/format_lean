@@ -2,3 +2,4 @@
 node_modules/
 package-lock.json
 **/Lean_formatter.egg-info
+src/format_lean.egg-info/

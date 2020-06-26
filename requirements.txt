@@ -1,4 +1,4 @@
 jinja2>=2.10
-regex>=2018.7.11
+regex==2019.11.1
 mistletoe>=0.7.1
 beautifulsoup4>=4.7.1
