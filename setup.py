@@ -6,8 +6,7 @@ setup(
     author='Patrick Massot',
     author_email='patrickmassot@free.fr',
     description='A Lean prover text formatter',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
+    packages=find_packages(),
     package_data={
         '': ['*.css', '*.css.map', '*.js', 'templates/*'],
     },
