@@ -2,3 +2,4 @@
 node_modules/
 package-lock.json
 format_lean.egg-info/
+examples/leanpkg.path

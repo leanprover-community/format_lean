@@ -31,11 +31,10 @@ jobs:
         echo "::set-env name=short_lean_version::$(~/.elan/bin/lean --run scripts/lean_version.lean)"
     - name: configure lean project
       run: |
-        pip install mathlibtools
+        pip install https://github.com/utensil-contrib/mathlib-tools/archive/dev.zip
         cd examples
         leanpkg configure
         leanproject get-mathlib-cache
-        leanproject build
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
