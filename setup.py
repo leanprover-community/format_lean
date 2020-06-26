@@ -18,4 +18,4 @@ setup(
     },
     install_requires=['regex==2019.11.1', 'jinja2 >= 2.10',
                       'mistletoe >= 0.7.1', 'toml >= 0.10.0',
-                      'fire >= 0.1.3', 'beautifulsoup4 >= 4.7.1'])
+                      'fire >= 0.1.3', 'beautifulsoup4 >= 4.7.1', "pygments>=2.6.1"])
