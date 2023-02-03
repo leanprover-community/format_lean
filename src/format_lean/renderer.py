@@ -6,15 +6,15 @@ from jinja2 import Environment, FileSystemLoader
 from mistletoe.html_renderer import HTMLRenderer
 from mistletoe.block_token import Document
 
-from pygments.lexers import LeanLexer
-from pygments import highlight 
+from pygments import highlight
 from pygments.formatters import HtmlFormatter
 
 from format_lean.objects import Text, Paragraph
 from format_lean.tikzcd import  TikzcdRenderer
+from format_lean.lexer import LeanLexer
 
-lexer = LeanLexer(leanstripall=True)    
-formatter = HtmlFormatter(linenos=False) 
+lexer = LeanLexer(leanstripall=True)
+formatter = HtmlFormatter(linenos=False)
 
 def color(obj):
     if hasattr(obj, 'lean'):
@@ -32,7 +32,7 @@ def prepare(content):
     for old, new in [('« ', '« '), (' »', ' »'),
             (r'\{', r'\\{'), (r'\}', r'\\}'),
             (r'\(', r'\\('), (r'\)', r'\\)'),
-            (r'\;', r'\\;'), (r'\,', r'\\,'), 
+            (r'\;', r'\\;'), (r'\,', r'\\,'),
             (r'\!', r'\\!')]:
         content = content.replace(old, new)
     return content
