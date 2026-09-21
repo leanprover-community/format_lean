@@ -1,5 +1,7 @@
 # Lean formatter
 
+**Warning**: this is a completely obsolete tool. It targets Lean 3 which only has historical significance today. People interested in functionality of `format_lean` should take at look at [Verso](https://verso.lean-lang.org/).
+
 This prototype is a python library which renders convert Lean files to
 other files, for instance another Lean file of a html file.
 
